@@ -1,6 +1,8 @@
 package de.pribluda.android.stroker;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Path;
 import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -12,6 +14,7 @@ import static de.pribluda.android.stroker.UpdaterState.*;
  */
 public class Updater implements SurfaceHolder.Callback {
     public static final String LOG_TAG = "updater";
+    public static final int AMOUNT_SPECTRES = 10;
     final SurfaceHolder surfaceHolder;
     UpdaterState state;
 
@@ -20,9 +23,16 @@ public class Updater implements SurfaceHolder.Callback {
 
     boolean haveSurface = false;
     private Bitmap field;
+    private Canvas fieldCanvas;
+
+    // store some back values for energies in circular buffer
+    private double[][] energies = new double[AMOUNT_SPECTRES][StrokeDetector.WINDOW_SIZE];
+    private int energyIndex;
 
     public Updater(SurfaceHolder surfaceHolder) {
         this.surfaceHolder = surfaceHolder;
+
+
     }
 
 
@@ -30,6 +40,22 @@ public class Updater implements SurfaceHolder.Callback {
         while (RUNNING == state) {
             if(RUNNING == state && haveSurface ) {
                 // draw all the stuff  and post on surface
+
+                // clear canvas
+                fieldCanvas.drawRGB(0, 0, 0);
+                // draw individual spectral lines starting from the next one
+                for( int i = 0; i < AMOUNT_SPECTRES; i++ )  {
+                    double[] energy = energies[(i + 1 + energyIndex) % AMOUNT_SPECTRES];
+                    int offset = (AMOUNT_SPECTRES -i) * 5;
+                    int step = width / energy.length;
+
+                    Path path = new Path();
+
+                    path.moveTo(0,offset);
+
+
+                }
+
                 Log.d(LOG_TAG,"updating state");
             }
             try {
@@ -57,6 +83,7 @@ public class Updater implements SurfaceHolder.Callback {
         // create bitmap with RGB 565, as this is background, we do not care about
         // transparency
         field = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+        fieldCanvas = new Canvas(field);
     }
 
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
