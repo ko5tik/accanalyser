@@ -13,7 +13,8 @@
 
         <activity android:name="com.google.ads.AdActivity"
                   android:configChanges="keyboard|keyboardHidden|orientation"/>
-        <activity android:name=".StrokeCounter" android:label="Stroke counter">
+        <activity android:name=".StrokeCounter" android:label="Stroke counter"
+                  android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

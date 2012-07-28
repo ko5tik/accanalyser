@@ -1,7 +1,7 @@
 package de.pribluda.android.stroker;
 
 /**
- * FFT computation copzpasted from SO
+ * FFT computation copypasted from SO
  */
 public class FFT {
 

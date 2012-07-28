@@ -17,7 +17,7 @@ public class StrokeDetector implements SensorEventListener {
     private static StrokeDetector instance;
 
     // window size for fft
-    public static final int WINDOW_SIZE = 128;
+    public static final int WINDOW_SIZE = 256;
     private SensorManager sensorManager;
 
 
