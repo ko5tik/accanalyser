@@ -5,11 +5,14 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.util.Log;
 
 /**
  *
  */
 public class StrokeDetector implements SensorEventListener {
+
+    public static final String LOG_TAG = "strokeCounter.detector";
 
     private static StrokeDetector instance;
 
@@ -31,12 +34,14 @@ public class StrokeDetector implements SensorEventListener {
 
 
     public void start() {
+        Log.d(LOG_TAG,"started") ;
         sensorManager.registerListener(this, sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0), SensorManager.SENSOR_DELAY_FASTEST);
 
     }
 
 
     public void stop() {
+        Log.d(LOG_TAG,"stopped") ;
         sensorManager.unregisterListener(this);
     }
 
@@ -46,6 +51,7 @@ public class StrokeDetector implements SensorEventListener {
      * @param sensorEvent
      */
     public void onSensorChanged(SensorEvent sensorEvent) {
+        Log.d(LOG_TAG,"received event") ;
         // we are only interested in accelerometer events
         if (Sensor.TYPE_ACCELEROMETER == sensorEvent.sensor.getType()) {
             // compute modulo
@@ -53,6 +59,7 @@ public class StrokeDetector implements SensorEventListener {
             // store difference
             buffer[index] = lastSample - modulo;
             lastSample = modulo;
+            Log.d(LOG_TAG,"difference:" + lastSample) ;
             // advance index
             index++;
             index %= WINDOW_SIZE;

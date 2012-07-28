@@ -10,12 +10,14 @@ import android.view.SurfaceView;
  */
 public class StrokeCounter extends Activity {
 
+    public static final String LOG_TAG = "strokeCounter";
     SurfaceHolder field;
 
 
     boolean surfaceReady = false;
 
     Updater updater;
+    private StrokeDetector detector;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +28,9 @@ public class StrokeCounter extends Activity {
         final SurfaceView surfaceView = (SurfaceView) findViewById(R.id.displayField);
         field = surfaceView.getHolder();
 
-        updater = new Updater(field);
+        detector = new StrokeDetector(this);
+
+        updater = new Updater(field, detector);
         // add callback
         field.addCallback(updater);
     }
@@ -35,6 +39,7 @@ public class StrokeCounter extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        detector.start();
         updater.start();
     }
 
@@ -42,18 +47,10 @@ public class StrokeCounter extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
+        detector.stop();
         updater.stop();
     }
 
 
-    /**
-     * start update process for graphs
-     */
-    private void startUpdating() {
-    }
-
-
-    private void stopUpdating() {
-    }
 
 }

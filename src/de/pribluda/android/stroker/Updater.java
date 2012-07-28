@@ -2,6 +2,7 @@ package de.pribluda.android.stroker;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.Log;
 import android.view.Surface;
@@ -13,7 +14,7 @@ import static de.pribluda.android.stroker.UpdaterState.*;
  * performs graphics update
  */
 public class Updater implements SurfaceHolder.Callback {
-    public static final String LOG_TAG = "updater";
+    public static final String LOG_TAG = "strokeCounter.updater";
     public static final int AMOUNT_SPECTRES = 10;
     final SurfaceHolder surfaceHolder;
     UpdaterState state;
@@ -28,10 +29,20 @@ public class Updater implements SurfaceHolder.Callback {
     // store some back values for energies in circular buffer
     private double[][] energies = new double[AMOUNT_SPECTRES][StrokeDetector.WINDOW_SIZE];
     private int energyIndex;
+    private final Paint energyPaint;
 
-    public Updater(SurfaceHolder surfaceHolder) {
+    final StrokeDetector detector;
+    private final FFT fft;
+
+    public Updater(SurfaceHolder surfaceHolder, StrokeDetector detector) {
         this.surfaceHolder = surfaceHolder;
+        this.detector = detector;
 
+        energyPaint = new Paint();
+        energyPaint.setAlpha(0xf0);
+        energyPaint.setColor(0xffffff);
+
+        fft = new FFT(StrokeDetector.WINDOW_SIZE);
 
     }
 
@@ -39,6 +50,13 @@ public class Updater implements SurfaceHolder.Callback {
     public void updateState() {
         while (RUNNING == state) {
             if (RUNNING == state && haveSurface) {
+
+                // calculate fresh energies   and advance index
+
+                fft.fft(detector.getBuffer(),energies[energyIndex]);
+                energyIndex++;
+                energyIndex %= AMOUNT_SPECTRES;
+
                 // draw all the stuff  and post on surface
 
                 // clear canvas
@@ -48,11 +66,12 @@ public class Updater implements SurfaceHolder.Callback {
                 int step = width / StrokeDetector.WINDOW_SIZE;
 
                 for (int i = 0; i < AMOUNT_SPECTRES; i++) {
-                    double[] energy = energies[(i + 1 + energyIndex) % AMOUNT_SPECTRES];
+                    double[] energy = energies[(i + energyIndex) % AMOUNT_SPECTRES];
                     int offset = (AMOUNT_SPECTRES - i) * 5;
                     Path path = createPath(step, energy, offset);
 
 
+                    fieldCanvas.drawPath(path,energyPaint);
                 }
 
                 Log.d(LOG_TAG, "updating state");
