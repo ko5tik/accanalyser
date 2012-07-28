@@ -59,7 +59,7 @@ public class StrokeDetector implements SensorEventListener {
             // store difference
             buffer[index] = lastSample - modulo;
             lastSample = modulo;
-            Log.d(LOG_TAG,"difference:" + lastSample) ;
+            Log.d(LOG_TAG,"sample:" + lastSample + " difference:" + buffer[index]) ;
             // advance index
             index++;
             index %= WINDOW_SIZE;

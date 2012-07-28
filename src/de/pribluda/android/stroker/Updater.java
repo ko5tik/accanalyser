@@ -53,7 +53,7 @@ public class Updater implements SurfaceHolder.Callback {
 
                 // calculate fresh energies   and advance index
 
-                fft.fft(detector.getBuffer(),energies[energyIndex]);
+                fft.fft(detector.getBuffer(), energies[energyIndex]);
                 energyIndex++;
                 energyIndex %= AMOUNT_SPECTRES;
 
@@ -71,10 +71,17 @@ public class Updater implements SurfaceHolder.Callback {
                     Path path = createPath(step, energy, offset);
 
 
-                    fieldCanvas.drawPath(path,energyPaint);
+                    fieldCanvas.drawPath(path, energyPaint);
                 }
 
                 Log.d(LOG_TAG, "updating state");
+
+                // field is prepared  , draw it
+                Canvas canvas = surfaceHolder.lockCanvas();
+                canvas.drawBitmap(field, 0, 0, null);
+                surfaceHolder.unlockCanvasAndPost(canvas);
+
+                Log.d(LOG_TAG, "field drawn");
             }
             try {
                 Log.d(LOG_TAG, "sleeping");
@@ -90,13 +97,20 @@ public class Updater implements SurfaceHolder.Callback {
     private Path createPath(int step, double[] energy, int offset) {
         Path path;
         path = new Path();
-
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(" path: (" + offset + ":" + offset + ")");
         path.moveTo(offset, offset);
 
         // iterate over energies
         for (int j = 0; j < energy.length; j++) {
-            path.lineTo(j * step + offset , (float) (energy[j] + offset));
+            int x = j * step + offset;
+            float y = (float) (energy[j] + offset);
+            stringBuffer.append(" " + j + ": (" + x + ":" + y + ")");
+            path.lineTo(x, y);
         }
+
+        Log.d(LOG_TAG, stringBuffer.toString());
+
         return path;
     }
 
@@ -105,7 +119,7 @@ public class Updater implements SurfaceHolder.Callback {
     }
 
     public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height) {
-        Log.d(LOG_TAG, "surface available");
+        Log.d(LOG_TAG, "surface available w:" + width + " h: " + height);
         this.width = width;
         this.height = height;
 
