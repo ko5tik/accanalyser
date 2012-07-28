@@ -39,7 +39,7 @@ public class Updater implements SurfaceHolder.Callback {
         this.detector = detector;
 
         energyPaint = new Paint();
-        energyPaint.setColor(0xffffffff);
+        energyPaint.setColor(0x80ffffff);
         energyPaint.setStrokeWidth(1);
 
         fft = new FFT(StrokeDetector.WINDOW_SIZE);
@@ -99,12 +99,12 @@ public class Updater implements SurfaceHolder.Callback {
         path = new Path();
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(" path: (" + offset + ":" + offset + ")");
-        path.moveTo(offset, offset);
+        path.moveTo(offset, height - offset);
 
         // iterate over energies
         for (int j = 0; j < energy.length; j++) {
             int x = j * step + offset;
-            float y =  (float) (energy[j] + offset);
+            float y =  height - (float) (energy[j] + offset);
             stringBuffer.append(" " + j + ": (" + x + ":" + y + ")");
             path.lineTo(x, y);
         }

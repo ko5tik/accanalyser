@@ -35,7 +35,7 @@ public class StrokeDetector implements SensorEventListener {
 
     public void start() {
         Log.d(LOG_TAG,"started") ;
-        sensorManager.registerListener(this, sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0), SensorManager.SENSOR_DELAY_FASTEST);
+        sensorManager.registerListener(this, sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0), SensorManager.SENSOR_DELAY_GAME);
 
     }
 
