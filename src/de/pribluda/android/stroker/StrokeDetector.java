@@ -17,7 +17,7 @@ public class StrokeDetector implements SensorEventListener {
     private static StrokeDetector instance;
 
     // window size for fft
-    public static final int WINDOW_SIZE = 256;
+    public static final int WINDOW_SIZE = 512;
     private SensorManager sensorManager;
 
 
@@ -34,14 +34,14 @@ public class StrokeDetector implements SensorEventListener {
 
 
     public void start() {
-        Log.d(LOG_TAG,"started") ;
-        sensorManager.registerListener(this, sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0), SensorManager.SENSOR_DELAY_GAME);
+        Log.d(LOG_TAG, "started");
+        sensorManager.registerListener(this, sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER).get(0), SensorManager.SENSOR_DELAY_FASTEST);
 
     }
 
 
     public void stop() {
-        Log.d(LOG_TAG,"stopped") ;
+        Log.d(LOG_TAG, "stopped");
         sensorManager.unregisterListener(this);
     }
 
@@ -51,15 +51,15 @@ public class StrokeDetector implements SensorEventListener {
      * @param sensorEvent
      */
     public void onSensorChanged(SensorEvent sensorEvent) {
-        Log.d(LOG_TAG,"received event") ;
+        Log.d(LOG_TAG, "received event");
         // we are only interested in accelerometer events
         if (Sensor.TYPE_ACCELEROMETER == sensorEvent.sensor.getType()) {
             // compute modulo
             double modulo = Math.sqrt(sensorEvent.values[0] * sensorEvent.values[0] + sensorEvent.values[1] * sensorEvent.values[1] + sensorEvent.values[2] * sensorEvent.values[2]);
             // store difference
-            buffer[index] = lastSample - modulo;
-            lastSample = modulo;
-            Log.d(LOG_TAG,"sample:" + lastSample + " difference:" + buffer[index]) ;
+            buffer[index] = /*lastSample - */modulo;
+            //   lastSample = modulo;
+            //  Log.d(LOG_TAG,"sample:" + lastSample + " difference:" + buffer[index]) ;
             // advance index
             index++;
             index %= WINDOW_SIZE;

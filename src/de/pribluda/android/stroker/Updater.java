@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 
+import java.util.Arrays;
+
 import static de.pribluda.android.stroker.UpdaterState.*;
 
 /**
@@ -15,7 +17,8 @@ import static de.pribluda.android.stroker.UpdaterState.*;
  */
 public class Updater implements SurfaceHolder.Callback {
     public static final String LOG_TAG = "strokeCounter.updater";
-    public static final int AMOUNT_SPECTRES = 10;
+    public static final int AMOUNT_SPECTRES = 25;
+    public static final int BASE_OFFSET = 3;
     final SurfaceHolder surfaceHolder;
     UpdaterState state;
 
@@ -33,6 +36,11 @@ public class Updater implements SurfaceHolder.Callback {
 
     final StrokeDetector detector;
     private final FFT fft;
+
+
+    private final double[] real = new double[StrokeDetector.WINDOW_SIZE];
+    private final double[] imaginary = new double[StrokeDetector.WINDOW_SIZE];
+
 
     public Updater(SurfaceHolder surfaceHolder, StrokeDetector detector) {
         this.surfaceHolder = surfaceHolder;
@@ -53,7 +61,12 @@ public class Updater implements SurfaceHolder.Callback {
 
                 // calculate fresh energies   and advance index
 
-                fft.fft(detector.getBuffer(), energies[energyIndex]);
+                System.arraycopy(detector.getBuffer(),0,real,0,StrokeDetector.WINDOW_SIZE);
+                Arrays.fill(imaginary,0);
+                fft.fft(real, imaginary);
+
+                System.arraycopy(real,0,energies[energyIndex],0,StrokeDetector.WINDOW_SIZE);
+
                 energyIndex++;
                 energyIndex %= AMOUNT_SPECTRES;
 
@@ -67,7 +80,7 @@ public class Updater implements SurfaceHolder.Callback {
 
                 for (int i = 0; i < AMOUNT_SPECTRES; i++) {
                     double[] energy = energies[(i + energyIndex) % AMOUNT_SPECTRES];
-                    int offset = (AMOUNT_SPECTRES - i) * 5;
+                    int offset = (AMOUNT_SPECTRES - i) * BASE_OFFSET;
                     Path path = createPath(step, energy, offset);
 
 
@@ -97,20 +110,20 @@ public class Updater implements SurfaceHolder.Callback {
     private Path createPath(int step, double[] energy, int offset) {
         Path path;
         path = new Path();
-        StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append(" path: (" + offset + ":" + offset + ")");
+       // StringBuffer stringBuffer = new StringBuffer();
+      //  stringBuffer.append(" path: (" + offset + ":" + offset + ")");
         path.moveTo(offset, height - offset);
 
         // iterate over energies
         for (int j = 0; j < energy.length; j++) {
             int x = j * step + offset;
             float y =  height - (float) (energy[j] + offset);
-            stringBuffer.append(" " + j + ": (" + x + ":" + y + ")");
+        //    stringBuffer.append(" " + j + ": (" + x + ":" + y + ")");
             path.lineTo(x, y);
         }
 
 
-        Log.d(LOG_TAG, stringBuffer.toString());
+      //  Log.d(LOG_TAG, stringBuffer.toString());
 
         return path;
     }
