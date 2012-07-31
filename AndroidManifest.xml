@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="de.pribluda.android.stroker"
+          package="de.pribluda.android.acceleration.analyzer"
           android:versionCode="0"
           android:versionName="0.0">
     <application android:label="Stroke counter" android:theme="@android:style/Theme.Black">
@@ -13,7 +13,7 @@
 
         <activity android:name="com.google.ads.AdActivity"
                   android:configChanges="keyboard|keyboardHidden|orientation"/>
-        <activity android:name=".StrokeCounter" android:label="Stroke counter"
+        <activity android:name=".StrokeCounter" android:label="Acceleration spectre"
                   android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

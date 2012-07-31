@@ -1,4 +1,4 @@
-package de.pribluda.android.stroker;
+package de.pribluda.android.accanalyzer;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -9,7 +9,7 @@ import android.view.SurfaceHolder;
 
 import java.util.Arrays;
 
-import static de.pribluda.android.stroker.UpdaterState.*;
+import static de.pribluda.android.accanalyzer.UpdaterState.*;
 
 /**
  * performs graphics update
@@ -83,7 +83,7 @@ public class Updater implements SurfaceHolder.Callback {
                 fieldCanvas.drawRGB(0, 0, 0);
                 // draw individual spectral lines starting from the next one
 
-                int step = width / StrokeDetector.WINDOW_SIZE;
+                int step = width  * 2 / StrokeDetector.WINDOW_SIZE;
 
                 for (int i = 0; i < AMOUNT_SPECTRES; i++) {
                     double[] energy = energies[(i + energyIndex) % AMOUNT_SPECTRES];
@@ -124,9 +124,9 @@ public class Updater implements SurfaceHolder.Callback {
         path.moveTo(offset, height - offset);
 
         // iterate over energies
-        for (int j = 0; j < energy.length; j++) {
+        for (int j = 0; j < energy.length / 2; j++) {
             int x = j * step + offset;
-            float y = height - (float) (energy[j] + offset);
+            float y = height - (float) (energy[energy.length -1 -j] + offset);
             //    stringBuffer.append(" " + j + ": (" + x + ":" + y + ")");
             path.lineTo(x, y);
         }

@@ -1,4 +1,4 @@
-package de.pribluda.android.stroker;
+package de.pribluda.android.accanalyzer;
 
 import android.app.Activity;
 import android.os.Bundle;

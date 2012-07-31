@@ -1,4 +1,4 @@
-package de.pribluda.android.stroker;
+package de.pribluda.android.accanalyzer;
 
 /**
  * Created with IntelliJ IDEA.
