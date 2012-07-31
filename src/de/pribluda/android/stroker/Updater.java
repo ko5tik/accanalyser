@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.Log;
-import android.view.Surface;
 import android.view.SurfaceHolder;
 
 import java.util.Arrays;
@@ -32,7 +31,7 @@ public class Updater implements SurfaceHolder.Callback {
     // store some back values for energies in circular buffer
     private double[][] energies = new double[AMOUNT_SPECTRES][StrokeDetector.WINDOW_SIZE];
     private int energyIndex;
-    private final Paint energyPaint;
+    private final Paint energyLine;
 
     final StrokeDetector detector;
     private final FFT fft;
@@ -40,16 +39,22 @@ public class Updater implements SurfaceHolder.Callback {
 
     private final double[] real = new double[StrokeDetector.WINDOW_SIZE];
     private final double[] imaginary = new double[StrokeDetector.WINDOW_SIZE];
+    private final Paint energyFill;
 
 
     public Updater(SurfaceHolder surfaceHolder, StrokeDetector detector) {
         this.surfaceHolder = surfaceHolder;
         this.detector = detector;
 
-        energyPaint = new Paint();
-        energyPaint.setColor(0x80ffffff);
-        energyPaint.setStrokeWidth(1);
+        energyLine = new Paint();
+        energyLine.setColor(0xffffffff);
+        energyLine.setStrokeWidth(2);
+        energyLine.setStyle(Paint.Style.STROKE);
 
+        energyFill = new Paint();
+        energyFill.setColor(0x80808080);
+        energyFill.setStrokeWidth(2);
+        energyFill.setStyle(Paint.Style.FILL);
         fft = new FFT(StrokeDetector.WINDOW_SIZE);
 
     }
@@ -61,12 +66,14 @@ public class Updater implements SurfaceHolder.Callback {
 
                 // calculate fresh energies   and advance index
 
-                System.arraycopy(detector.getBuffer(),0,real,0,StrokeDetector.WINDOW_SIZE);
-                Arrays.fill(imaginary,0);
+                System.arraycopy(detector.getBuffer(), 0, real, 0, StrokeDetector.WINDOW_SIZE);
+                Arrays.fill(imaginary, 0);
                 fft.fft(real, imaginary);
 
-                System.arraycopy(real,0,energies[energyIndex],0,StrokeDetector.WINDOW_SIZE);
-
+                //  System.arraycopy(real,0,energies[energyIndex],0,StrokeDetector.WINDOW_SIZE);
+                for (int i = 0; i < StrokeDetector.WINDOW_SIZE; i++) {
+                    energies[energyIndex][i] = Math.sqrt(real[i] * real[i] + imaginary[i] * imaginary[i]);
+                }
                 energyIndex++;
                 energyIndex %= AMOUNT_SPECTRES;
 
@@ -84,7 +91,9 @@ public class Updater implements SurfaceHolder.Callback {
                     Path path = createPath(step, energy, offset);
 
 
-                    fieldCanvas.drawPath(path, energyPaint);
+                    fieldCanvas.drawPath(path, energyFill);
+                    fieldCanvas.drawPath(path, energyLine);
+
                 }
 
                 Log.d(LOG_TAG, "updating state");
@@ -110,20 +119,22 @@ public class Updater implements SurfaceHolder.Callback {
     private Path createPath(int step, double[] energy, int offset) {
         Path path;
         path = new Path();
-       // StringBuffer stringBuffer = new StringBuffer();
-      //  stringBuffer.append(" path: (" + offset + ":" + offset + ")");
+        // StringBuffer stringBuffer = new StringBuffer();
+        //  stringBuffer.append(" path: (" + offset + ":" + offset + ")");
         path.moveTo(offset, height - offset);
 
         // iterate over energies
         for (int j = 0; j < energy.length; j++) {
             int x = j * step + offset;
-            float y =  height - (float) (energy[j] + offset);
-        //    stringBuffer.append(" " + j + ": (" + x + ":" + y + ")");
+            float y = height - (float) (energy[j] + offset);
+            //    stringBuffer.append(" " + j + ": (" + x + ":" + y + ")");
             path.lineTo(x, y);
         }
+        path.lineTo(StrokeDetector.WINDOW_SIZE * step + offset, height - offset);
+        //  path.close();
+        path.setFillType(Path.FillType.EVEN_ODD);
 
-
-      //  Log.d(LOG_TAG, stringBuffer.toString());
+        //  Log.d(LOG_TAG, stringBuffer.toString());
 
         return path;
     }
