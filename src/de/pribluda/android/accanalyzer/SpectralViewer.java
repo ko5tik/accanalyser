@@ -11,7 +11,7 @@ import de.pribluda.android.andject.ViewInjector;
 /**
  * activity displaying stroke count
  */
-public class StrokeCounter extends Activity {
+public class SpectralViewer extends Activity {
 
     public static final String LOG_TAG = "strokeCounter";
     SurfaceHolder field;

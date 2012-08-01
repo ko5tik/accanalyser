@@ -13,7 +13,7 @@
 
         <activity android:name="com.google.ads.AdActivity"
                   android:configChanges="keyboard|keyboardHidden|orientation"/>
-        <activity android:name=".StrokeCounter" android:label="Acceleration spectre"
+        <activity android:name=".SpectralViewer" android:label="Acceleration spectre"
                   android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
