@@ -20,7 +20,7 @@ public class SpectralViewer extends Activity {
     boolean surfaceReady = false;
 
     Updater updater;
-    private StrokeDetector detector;
+    private Sampler detector;
 
     @InjectView(id = R.id.resolution_spinner)
     private Spinner sampleSpinner;
@@ -35,7 +35,7 @@ public class SpectralViewer extends Activity {
 
         field = surfaceView.getHolder();
 
-        detector = new StrokeDetector(this);
+        detector = new Sampler(this);
 
         updater = new Updater(field, detector);
         // add callback

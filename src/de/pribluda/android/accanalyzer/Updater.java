@@ -29,20 +29,20 @@ public class Updater implements SurfaceHolder.Callback {
     private Canvas fieldCanvas;
 
     // store some back values for energies in circular buffer
-    private double[][] energies = new double[AMOUNT_SPECTRES][StrokeDetector.WINDOW_SIZE];
+    private double[][] energies = new double[AMOUNT_SPECTRES][Sampler.WINDOW_SIZE];
     private int energyIndex;
     private final Paint energyLine;
 
-    final StrokeDetector detector;
+    final Sampler detector;
     private final FFT fft;
 
 
-    private final double[] real = new double[StrokeDetector.WINDOW_SIZE];
-    private final double[] imaginary = new double[StrokeDetector.WINDOW_SIZE];
+    private final double[] real = new double[Sampler.WINDOW_SIZE];
+    private final double[] imaginary = new double[Sampler.WINDOW_SIZE];
     private final Paint energyFill;
 
 
-    public Updater(SurfaceHolder surfaceHolder, StrokeDetector detector) {
+    public Updater(SurfaceHolder surfaceHolder, Sampler detector) {
         this.surfaceHolder = surfaceHolder;
         this.detector = detector;
 
@@ -55,7 +55,7 @@ public class Updater implements SurfaceHolder.Callback {
         energyFill.setColor(0x80808080);
         energyFill.setStrokeWidth(2);
         energyFill.setStyle(Paint.Style.FILL);
-        fft = new FFT(StrokeDetector.WINDOW_SIZE);
+        fft = new FFT(Sampler.WINDOW_SIZE);
 
     }
 
@@ -66,12 +66,12 @@ public class Updater implements SurfaceHolder.Callback {
 
                 // calculate fresh energies   and advance index
 
-                System.arraycopy(detector.getBuffer(), 0, real, 0, StrokeDetector.WINDOW_SIZE);
+                System.arraycopy(detector.getBuffer(), 0, real, 0, Sampler.WINDOW_SIZE);
                 Arrays.fill(imaginary, 0);
                 fft.fft(real, imaginary);
 
-                //  System.arraycopy(real,0,energies[energyIndex],0,StrokeDetector.WINDOW_SIZE);
-                for (int i = 0; i < StrokeDetector.WINDOW_SIZE; i++) {
+                //  System.arraycopy(real,0,energies[energyIndex],0,Sampler.WINDOW_SIZE);
+                for (int i = 0; i < Sampler.WINDOW_SIZE; i++) {
                     energies[energyIndex][i] = Math.sqrt(real[i] * real[i] + imaginary[i] * imaginary[i]);
                 }
                 energyIndex++;
@@ -83,7 +83,7 @@ public class Updater implements SurfaceHolder.Callback {
                 fieldCanvas.drawRGB(0, 0, 0);
                 // draw individual spectral lines starting from the next one
 
-                int step = width  * 2 / StrokeDetector.WINDOW_SIZE;
+                int step = width  * 2 / Sampler.WINDOW_SIZE;
 
                 for (int i = 0; i < AMOUNT_SPECTRES; i++) {
                     double[] energy = energies[(i + energyIndex) % AMOUNT_SPECTRES];
@@ -130,7 +130,7 @@ public class Updater implements SurfaceHolder.Callback {
             //    stringBuffer.append(" " + j + ": (" + x + ":" + y + ")");
             path.lineTo(x, y);
         }
-        path.lineTo(StrokeDetector.WINDOW_SIZE * step + offset, height - offset);
+        path.lineTo(Sampler.WINDOW_SIZE * step + offset, height - offset);
         //  path.close();
         path.setFillType(Path.FillType.EVEN_ODD);
 
