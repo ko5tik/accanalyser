@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.Spinner;
+import de.pribluda.android.andject.InjectView;
+import de.pribluda.android.andject.ViewInjector;
 
 /**
  * activity displaying stroke count
@@ -19,13 +22,17 @@ public class StrokeCounter extends Activity {
     Updater updater;
     private StrokeDetector detector;
 
+    @InjectView(id = R.id.resolution_spinner)
+    private Spinner sampleSpinner;
+    @InjectView(id = R.id.displayField)
+    private SurfaceView surfaceView;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stroke_counter);
+        // inject views
+        ViewInjector.startActivity(this);
 
-
-        // rertieve game field
-        final SurfaceView surfaceView = (SurfaceView) findViewById(R.id.displayField);
         field = surfaceView.getHolder();
 
         detector = new StrokeDetector(this);
@@ -50,7 +57,6 @@ public class StrokeCounter extends Activity {
         detector.stop();
         updater.stop();
     }
-
 
 
 }
