@@ -1,4 +1,4 @@
-package de.pribluda.android.accanalyzer;
+package de.pribluda.android.accanalyzer.sampler;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -8,7 +8,7 @@ import android.hardware.SensorManager;
 import android.util.Log;
 
 /**
- *  gather samples from accelerometer
+ *  gather samples from accelerometer and pipe them into  sinks
  */
 public class Sampler implements SensorEventListener {
 

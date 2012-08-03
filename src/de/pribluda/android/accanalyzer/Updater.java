@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.Log;
 import android.view.SurfaceHolder;
+import de.pribluda.android.accanalyzer.sampler.Sampler;
 
 import java.util.Arrays;
 

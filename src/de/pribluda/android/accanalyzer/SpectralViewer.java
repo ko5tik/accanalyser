@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Spinner;
+import de.pribluda.android.accanalyzer.sampler.Sampler;
 import de.pribluda.android.andject.InjectView;
 import de.pribluda.android.andject.ViewInjector;
 
