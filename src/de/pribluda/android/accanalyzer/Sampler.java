@@ -8,7 +8,7 @@ import android.hardware.SensorManager;
 import android.util.Log;
 
 /**
- *
+ *  gather samples from accelerometer
  */
 public class Sampler implements SensorEventListener {
 
@@ -17,7 +17,7 @@ public class Sampler implements SensorEventListener {
     private static Sampler instance;
 
     // window size for fft
-    public static final int WINDOW_SIZE = 256;
+    public static final int WINDOW_SIZE = 128;
     private SensorManager sensorManager;
 
 

@@ -12,7 +12,7 @@ import java.util.Arrays;
 import static de.pribluda.android.accanalyzer.UpdaterState.*;
 
 /**
- * performs graphics update
+ * performs fft and updates graphics
  */
 public class Updater implements SurfaceHolder.Callback {
     public static final String LOG_TAG = "strokeCounter.updater";
@@ -29,7 +29,7 @@ public class Updater implements SurfaceHolder.Callback {
     private Canvas fieldCanvas;
 
     // store some back values for energies in circular buffer
-    private double[][] energies = new double[AMOUNT_SPECTRES][Sampler.WINDOW_SIZE];
+    private double[][] energies = new double[AMOUNT_SPECTRES][Sampler.WINDOW_SIZE / 2];
     private int energyIndex;
     private final Paint energyLine;
 
@@ -52,7 +52,7 @@ public class Updater implements SurfaceHolder.Callback {
         energyLine.setStyle(Paint.Style.STROKE);
 
         energyFill = new Paint();
-        energyFill.setColor(0x80808080);
+        energyFill.setColor(0x60808080);
         energyFill.setStrokeWidth(2);
         energyFill.setStyle(Paint.Style.FILL);
         fft = new FFT(Sampler.WINDOW_SIZE);
@@ -71,8 +71,9 @@ public class Updater implements SurfaceHolder.Callback {
                 fft.fft(real, imaginary);
 
                 //  System.arraycopy(real,0,energies[energyIndex],0,Sampler.WINDOW_SIZE);
-                for (int i = 0; i < Sampler.WINDOW_SIZE; i++) {
-                    energies[energyIndex][i] = Math.sqrt(real[i] * real[i] + imaginary[i] * imaginary[i]);
+                for (int i = 0; i < Sampler.WINDOW_SIZE / 2; i++) {
+                    int resultIndex = Sampler.WINDOW_SIZE - i -1;
+                    energies[energyIndex][i] = Math.sqrt(real[resultIndex] * real[resultIndex] + imaginary[resultIndex] * imaginary[resultIndex]);
                 }
                 energyIndex++;
                 energyIndex %= AMOUNT_SPECTRES;
@@ -124,9 +125,9 @@ public class Updater implements SurfaceHolder.Callback {
         path.moveTo(offset, height - offset);
 
         // iterate over energies
-        for (int j = 0; j < energy.length / 2; j++) {
-            int x = j * step + offset;
-            float y = height - (float) (energy[energy.length -1 -j] + offset);
+        for (int j = 0; j < energy.length ; j++) {
+            int x = j * step   + offset;
+            float y = height - (float) (energy[j] + offset);
             //    stringBuffer.append(" " + j + ": (" + x + ":" + y + ")");
             path.lineTo(x, y);
         }
