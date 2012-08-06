@@ -4,8 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.Spinner;
-import de.pribluda.android.accanalyzer.sampler.Sampler;
+import de.pribluda.android.accmeter.Sampler;
 import de.pribluda.android.andject.InjectView;
 import de.pribluda.android.andject.ViewInjector;
 
@@ -23,8 +22,7 @@ public class SpectralViewer extends Activity {
     Updater updater;
     private Sampler detector;
 
-    @InjectView(id = R.id.resolution_spinner)
-    private Spinner sampleSpinner;
+
     @InjectView(id = R.id.displayField)
     private SurfaceView surfaceView;
 
@@ -38,7 +36,9 @@ public class SpectralViewer extends Activity {
 
         detector = new Sampler(this);
 
-        updater = new Updater(field, detector);
+        updater = new Updater(field);
+
+        detector.addSink(updater);
         // add callback
         field.addCallback(updater);
     }
@@ -48,7 +48,6 @@ public class SpectralViewer extends Activity {
     protected void onResume() {
         super.onResume();
         detector.start();
-        updater.start();
     }
 
 
@@ -56,7 +55,6 @@ public class SpectralViewer extends Activity {
     protected void onPause() {
         super.onPause();
         detector.stop();
-        updater.stop();
     }
 
 

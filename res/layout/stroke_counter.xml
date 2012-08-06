@@ -7,19 +7,6 @@
         >
     <!--  game field is derived from table layout, so all attributes apply here -->
 
-    <LinearLayout android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
-            android:orientation="horizontal">
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="@string/resolution_choice"
-                android:layout_gravity="left|center_vertical"/>
-
-        <Spinner android:id="@+id/resolution_spinner"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_gravity="left|center_vertical"/>
-    </LinearLayout>
 
     <SurfaceView android:id="@+id/displayField"
                  android:layout_width="fill_parent"
