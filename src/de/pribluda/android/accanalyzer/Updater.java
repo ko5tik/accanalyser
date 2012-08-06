@@ -67,7 +67,10 @@ public class Updater implements SurfaceHolder.Callback, SampleSink {
 
             // draw individual spectral lines starting from the actual
             for (int i = 0; i < AMOUNT_SPECTRES; i++) {
-                final Sample sample = samples[(i + energyIndex) % AMOUNT_SPECTRES];
+                final int idx = (energyIndex + AMOUNT_SPECTRES - i) % AMOUNT_SPECTRES;
+                Log.d(LOG_TAG,"index: " + idx) ;
+
+                final Sample sample = samples[idx];
                 if (sample != null) {
                     double[] real = sample.getReal();
                     double[] imaginary = sample.getImaginary();
@@ -81,7 +84,7 @@ public class Updater implements SurfaceHolder.Callback, SampleSink {
                     }
 
                     int offset = (AMOUNT_SPECTRES - i) * BASE_OFFSET;
-                    int step = (width - offset * AMOUNT_SPECTRES) / energy.length;
+                    int step = (width - AMOUNT_SPECTRES * BASE_OFFSET) / energy.length;
 
 
                     Path path = createPath(step, energy, offset);
@@ -122,7 +125,7 @@ public class Updater implements SurfaceHolder.Callback, SampleSink {
         for (int j = 0; j < energy.length; j++) {
             int x = j * step + offset;
             float y = height - (float) (energy[j] + offset);
-            //    stringBuffer.append(" " + j + ": (" + x + ":" + y + ")");
+
             path.lineTo(x, y);
         }
         path.lineTo(energy.length * step + offset, height - offset);
