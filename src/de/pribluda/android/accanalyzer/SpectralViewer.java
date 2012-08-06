@@ -35,6 +35,7 @@ public class SpectralViewer extends Activity {
         field = surfaceView.getHolder();
 
         detector = new Sampler(this);
+        detector.setWindowSize(64);
 
         updater = new Updater(field);
 

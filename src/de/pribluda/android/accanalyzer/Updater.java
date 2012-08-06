@@ -62,13 +62,13 @@ public class Updater implements SurfaceHolder.Callback, SampleSink {
             // draw all the stuff  and post on surface
 
             // clear canvas
-            fieldCanvas.drawRGB(0, 0, 0);
+            fieldCanvas.drawRGB(0, 0x00, 0);
 
 
             // draw individual spectral lines starting from the actual
             for (int i = 0; i < AMOUNT_SPECTRES; i++) {
-                final int idx = (energyIndex + AMOUNT_SPECTRES - i) % AMOUNT_SPECTRES;
-                Log.d(LOG_TAG,"index: " + idx) ;
+                final int idx = (energyIndex  + i + 1) % AMOUNT_SPECTRES;
+            //    Log.d(LOG_TAG,"index: " + idx) ;
 
                 final Sample sample = samples[idx];
                 if (sample != null) {
@@ -83,8 +83,8 @@ public class Updater implements SurfaceHolder.Callback, SampleSink {
                         energy[j] = Math.sqrt(real[resultIndex] * real[resultIndex] + imaginary[resultIndex] * imaginary[resultIndex]);
                     }
 
-                    int offset = (AMOUNT_SPECTRES - i) * BASE_OFFSET;
-                    int step = (width - AMOUNT_SPECTRES * BASE_OFFSET) / energy.length;
+                    int offset = (AMOUNT_SPECTRES - i -1) * BASE_OFFSET;
+                    float step = ((float)width - (AMOUNT_SPECTRES-1) * BASE_OFFSET) /  energy.length;
 
 
                     Path path = createPath(step, energy, offset);
@@ -114,7 +114,7 @@ public class Updater implements SurfaceHolder.Callback, SampleSink {
      * @param offset sample offset
      * @return
      */
-    private Path createPath(int step, double[] energy, int offset) {
+    private Path createPath(float step, double[] energy, int offset) {
         Path path;
         path = new Path();
 
@@ -123,7 +123,7 @@ public class Updater implements SurfaceHolder.Callback, SampleSink {
 
         // iterate over energies
         for (int j = 0; j < energy.length; j++) {
-            int x = j * step + offset;
+            float x = j * step + offset;
             float y = height - (float) (energy[j] + offset);
 
             path.lineTo(x, y);
@@ -165,7 +165,7 @@ public class Updater implements SurfaceHolder.Callback, SampleSink {
      * @param sample
      */
     public void put(Sample sample) {
-        Log.d(LOG_TAG, "sample received");
+        Log.d(LOG_TAG, "sample received, rate:" + sample.getSampleRate());
         samples[energyIndex] = sample;
         updateState();
         energyIndex++;
