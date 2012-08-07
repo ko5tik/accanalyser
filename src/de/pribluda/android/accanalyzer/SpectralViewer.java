@@ -1,6 +1,7 @@
 package de.pribluda.android.accanalyzer;
 
 import android.app.Activity;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -36,6 +37,7 @@ public class SpectralViewer extends Activity {
 
         detector = new Sampler(this);
         detector.setWindowSize(64);
+        detector.setSensorDelay(SensorManager.SENSOR_DELAY_FASTEST);
 
         updater = new Updater(field);
 

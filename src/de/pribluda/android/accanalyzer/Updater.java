@@ -59,7 +59,7 @@ public class Updater implements SurfaceHolder.Callback, SampleSink {
             // draw all the stuff  and post on surface
 
             // clear canvas
-            fieldCanvas.drawRGB(0, 0x00, 0);
+            fieldCanvas.drawRGB(0,0,0);
 
 
             // draw individual spectral lines starting from the actual
@@ -97,7 +97,7 @@ public class Updater implements SurfaceHolder.Callback, SampleSink {
                     hsv[2] = 1;
                     for (int j = 0; j < colors.length; j++) {
                         hsv[0] = (float) ((phase[j] + Math.PI/2) * 360 / Math.PI);
-                        colors[j] = Color.HSVToColor(0xa0,hsv);
+                        colors[j] = Color.HSVToColor(0xf0,hsv);
                     }
 
                     energyFill.setShader(new LinearGradient(offset,height,offset + step * colors.length,height,colors,null, Shader.TileMode.CLAMP));
