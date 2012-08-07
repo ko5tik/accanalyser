@@ -1,9 +1,6 @@
 package de.pribluda.android.accanalyzer;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Path;
+import android.graphics.*;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import de.pribluda.android.accmeter.Sample;
@@ -84,7 +81,7 @@ public class Updater implements SurfaceHolder.Callback, SampleSink {
                         // energy
                         energy[j] = Math.sqrt(real[resultIndex] * real[resultIndex] + imaginary[resultIndex] * imaginary[resultIndex]);
                         // phase
-                        phase[j] = Math.atan2(real[resultIndex],imaginary[resultIndex]);
+                        phase[j] = Math.atan2(real[resultIndex], imaginary[resultIndex]);
                     }
 
                     int offset = (AMOUNT_SPECTRES - i - 1) * BASE_OFFSET;
@@ -93,6 +90,17 @@ public class Updater implements SurfaceHolder.Callback, SampleSink {
 
                     Path path = createPath(step, energy, offset);
 
+                    int[] colors = new int[phase.length];
+
+                    float  hsv[] = new float[3];
+                    hsv[1] = 1;
+                    hsv[2] = 1;
+                    for (int j = 0; j < colors.length; j++) {
+                        hsv[0] = (float) ((phase[j] + Math.PI/2) * 360 / Math.PI);
+                        colors[j] = Color.HSVToColor(0xa0,hsv);
+                    }
+
+                    energyFill.setShader(new LinearGradient(offset,height,offset + step * colors.length,height,colors,null, Shader.TileMode.CLAMP));
 
                     fieldCanvas.drawPath(path, energyFill);
                     fieldCanvas.drawPath(path, energyLine);
