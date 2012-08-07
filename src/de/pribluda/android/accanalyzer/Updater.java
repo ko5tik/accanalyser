@@ -67,8 +67,8 @@ public class Updater implements SurfaceHolder.Callback, SampleSink {
 
             // draw individual spectral lines starting from the actual
             for (int i = 0; i < AMOUNT_SPECTRES; i++) {
-                final int idx = (energyIndex  + i + 1) % AMOUNT_SPECTRES;
-            //    Log.d(LOG_TAG,"index: " + idx) ;
+                final int idx = (energyIndex + i + 1) % AMOUNT_SPECTRES;
+                //    Log.d(LOG_TAG,"index: " + idx) ;
 
                 final Sample sample = samples[idx];
                 if (sample != null) {
@@ -76,15 +76,19 @@ public class Updater implements SurfaceHolder.Callback, SampleSink {
                     double[] imaginary = sample.getImaginary();
 
                     double energy[] = new double[real.length / 2];
+                    double phase[] = new double[real.length / 2];
 
-                    //calculate energy
+                    //calculate energy    and phase
                     for (int j = 0; j < energy.length; j++) {
                         int resultIndex = real.length - j - 1;
+                        // energy
                         energy[j] = Math.sqrt(real[resultIndex] * real[resultIndex] + imaginary[resultIndex] * imaginary[resultIndex]);
+                        // phase
+                        phase[j] = Math.atan2(real[resultIndex],imaginary[resultIndex]);
                     }
 
-                    int offset = (AMOUNT_SPECTRES - i -1) * BASE_OFFSET;
-                    float step = ((float)width - (AMOUNT_SPECTRES-1) * BASE_OFFSET) /  energy.length;
+                    int offset = (AMOUNT_SPECTRES - i - 1) * BASE_OFFSET;
+                    float step = ((float) width - (AMOUNT_SPECTRES - 1) * BASE_OFFSET) / energy.length;
 
 
                     Path path = createPath(step, energy, offset);
@@ -95,7 +99,6 @@ public class Updater implements SurfaceHolder.Callback, SampleSink {
                 }
             }
 
-            Log.d(LOG_TAG, "updating state");
 
             // field is prepared  , draw it
             Canvas canvas = surfaceHolder.lockCanvas();
