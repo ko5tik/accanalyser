@@ -59,7 +59,7 @@ public class Updater implements SurfaceHolder.Callback, SampleSink {
             // draw all the stuff  and post on surface
 
             // clear canvas
-            fieldCanvas.drawRGB(0,0,0);
+            fieldCanvas.drawRGB(0, 0, 0);
 
 
             // draw individual spectral lines starting from the actual
@@ -92,15 +92,15 @@ public class Updater implements SurfaceHolder.Callback, SampleSink {
 
                     int[] colors = new int[phase.length];
 
-                    float  hsv[] = new float[3];
+                    float hsv[] = new float[3];
                     hsv[1] = 1;
                     hsv[2] = 1;
                     for (int j = 0; j < colors.length; j++) {
-                        hsv[0] = (float) ((phase[j] + Math.PI/2) * 360 / Math.PI);
-                        colors[j] = Color.HSVToColor(0xf0,hsv);
+                        hsv[0] = (float) ((phase[j] + Math.PI / 2) * 360 / Math.PI);
+                        colors[j] = Color.HSVToColor(0xf0, hsv);
                     }
 
-                    energyFill.setShader(new LinearGradient(offset,height,offset + step * colors.length,height,colors,null, Shader.TileMode.CLAMP));
+                    energyFill.setShader(new LinearGradient(offset, height, offset + step * colors.length, height, colors, null, Shader.TileMode.CLAMP));
 
                     fieldCanvas.drawPath(path, energyFill);
                     fieldCanvas.drawPath(path, energyLine);
@@ -110,8 +110,11 @@ public class Updater implements SurfaceHolder.Callback, SampleSink {
 
             // field is prepared  , draw it
             Canvas canvas = surfaceHolder.lockCanvas();
-            canvas.drawBitmap(field, 0, 0, null);
-            surfaceHolder.unlockCanvasAndPost(canvas);
+            // draw if and only canvas was acquired
+            if (null != canvas) {
+                canvas.drawBitmap(field, 0, 0, null);
+                surfaceHolder.unlockCanvasAndPost(canvas);
+            }
 
             Log.d(LOG_TAG, "field drawn");
         }

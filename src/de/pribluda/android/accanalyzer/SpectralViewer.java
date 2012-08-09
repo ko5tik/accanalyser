@@ -3,8 +3,10 @@ package de.pribluda.android.accanalyzer;
 import android.app.Activity;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import de.pribluda.android.accmeter.Sampler;
 import de.pribluda.android.andject.InjectView;
 import de.pribluda.android.andject.ViewInjector;
@@ -61,4 +63,7 @@ public class SpectralViewer extends Activity {
     }
 
 
+    public void toggleRecord(View view) {
+        Log.d(LOG_TAG,"button pressed");
+    }
 }
