@@ -1,0 +1,14 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical">
+
+    <ListView android:id="@+id/file_list"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:layout_weight="1"
+              android:choiceMode="none"
+              android:stackFromBottom="false"
+            />
+</LinearLayout>

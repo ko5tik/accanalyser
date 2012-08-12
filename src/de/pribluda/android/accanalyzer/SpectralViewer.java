@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.ToggleButton;
 import de.pribluda.android.accmeter.Sampler;
 import de.pribluda.android.andject.InjectView;
 import de.pribluda.android.andject.ViewInjector;
@@ -20,50 +21,66 @@ public class SpectralViewer extends Activity {
     SurfaceHolder field;
 
 
-    boolean surfaceReady = false;
-
     Updater updater;
-    private Sampler detector;
+    private Sampler sampler;
 
+    @InjectView(id = R.id.startStopButton)
+    ToggleButton recordButton;
 
     @InjectView(id = R.id.displayField)
     private SurfaceView surfaceView;
 
+    private Recorder recorder;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.stroke_counter);
         // inject views
         ViewInjector.startActivity(this);
 
         field = surfaceView.getHolder();
 
-        detector = new Sampler(this);
-        detector.setWindowSize(64);
-        detector.setSensorDelay(SensorManager.SENSOR_DELAY_FASTEST);
+        sampler = new Sampler(this);
+        sampler.setWindowSize(64);
+        sampler.setSensorDelay(SensorManager.SENSOR_DELAY_FASTEST);
 
+        recorder = Recorder.getInstance(this, sampler);
         updater = new Updater(field);
 
-        detector.addSink(updater);
+        sampler.addSink(updater);
         // add callback
         field.addCallback(updater);
+
+        recordButton.setChecked(recorder.isRecording());
+
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        detector.start();
+        sampler.start();
     }
 
 
     @Override
     protected void onPause() {
         super.onPause();
-        detector.stop();
+        if (recorder.isRecording()) {
+            sampler.stop();
+        }
     }
 
 
     public void toggleRecord(View view) {
-        Log.d(LOG_TAG,"button pressed");
+        Log.d(LOG_TAG, "button pressed");
+        if (recordButton.isChecked()) {
+            recorder.start(sampler);
+        } else {
+            recorder.stop();
+        }
+
     }
 }
