@@ -76,8 +76,6 @@ public class SpectralViewerTest {
 
                 recorder.isRecording();
                 returns(false);
-
-                sampler.stop();
             }
         };
 
