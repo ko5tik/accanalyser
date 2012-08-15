@@ -97,4 +97,8 @@ public class Recorder {
     public boolean isRecording() {
         return recording;
     }
+
+    public File[] listFiles() {
+        return basedir.listFiles();
+    }
 }

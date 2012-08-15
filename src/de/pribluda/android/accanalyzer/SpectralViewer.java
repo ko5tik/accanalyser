@@ -1,12 +1,11 @@
 package de.pribluda.android.accanalyzer;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
-import android.view.View;
+import android.view.*;
 import android.widget.ToggleButton;
 import de.pribluda.android.accmeter.Sampler;
 import de.pribluda.android.andject.InjectView;
@@ -42,11 +41,12 @@ public class SpectralViewer extends Activity {
 
         field = surfaceView.getHolder();
 
-        sampler = new Sampler(this);
+        sampler = ObjectFactory.getSampler(this);
         sampler.setWindowSize(64);
         sampler.setSensorDelay(SensorManager.SENSOR_DELAY_FASTEST);
 
-        recorder = Recorder.getInstance(this, sampler);
+        recorder = ObjectFactory.getRecorder(this);
+
         updater = new Updater(field);
 
         sampler.addSink(updater);
@@ -68,12 +68,17 @@ public class SpectralViewer extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (recorder.isRecording()) {
+        if (!recorder.isRecording()) {
             sampler.stop();
         }
     }
 
 
+    /**
+     * start and stop recording service
+     *
+     * @param view
+     */
     public void toggleRecord(View view) {
         Log.d(LOG_TAG, "button pressed");
         if (recordButton.isChecked()) {
@@ -81,6 +86,22 @@ public class SpectralViewer extends Activity {
         } else {
             recorder.stop();
         }
+    }
 
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.file_list_action:
+                startActivity(new Intent(this,FileSelector.class));
+        }
+        return false;
     }
 }

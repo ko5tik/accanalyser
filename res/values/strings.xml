@@ -1,3 +1,4 @@
 <resources>
     <string name="resolution_choice">Window size (samples):</string>
+    <string name="remove_question">Remove?</string>
 </resources>

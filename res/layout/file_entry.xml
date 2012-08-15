@@ -10,9 +10,11 @@
             android:layout_weight="1.0"
             android:id="@+id/file_name"
             android:gravity="left|center_vertical"
+            android:textSize="20dp"
             >
     </TextView>
     <ImageView
+            android:id="@+id/remove_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_delete"
