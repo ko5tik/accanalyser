@@ -47,23 +47,11 @@ public class FileSelector extends ListActivity {
 
         private final Context context;
         private File[] files = new File[0];
-        private final AlertDialog alertDialog;
 
         public SampleFileAdapter(Context context) {
             this.context = context;
 
-            alertDialog = (new AlertDialog.Builder(context)).setMessage(R.string.remove_question)
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialogInterface, int i) {
 
-                        }
-                    })
-                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            // System.err.println("canceled");
-                        }
-                    })
-                    .create();
         }
 
         public int getCount() {
@@ -104,7 +92,19 @@ public class FileSelector extends ListActivity {
             final View removeButton = fileView.findViewById(R.id.remove_button);
             removeButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    removeItem(i);
+
+                    (new AlertDialog.Builder(context)).setMessage(R.string.remove_question)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    removeItem(item);
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                }
+                            })
+                            .create().show();
+
                 }
             });
 
@@ -121,10 +121,10 @@ public class FileSelector extends ListActivity {
             notifyDataSetChanged();
         }
 
-        public void removeItem(int i) {
-            Log.d(LOG_TAG, "removing item:" + i);
+        public void removeItem(File file) {
+            Log.d(LOG_TAG, "removing item:" + file);
 
-            files[i].delete();
+            file.delete();
             setFileList(ObjectFactory.getRecorder(context).listFiles());
         }
     }
