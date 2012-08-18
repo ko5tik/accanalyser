@@ -50,8 +50,7 @@ public class SpectralViewer extends Activity {
         updater = new Updater(field);
 
         sampler.addSink(updater);
-        // add callback
-        field.addCallback(updater);
+
 
         recordButton.setChecked(recorder.isRecording());
 

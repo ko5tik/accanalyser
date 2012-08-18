@@ -49,6 +49,7 @@ public class SampleDisplay extends Activity implements SeekBar.OnSeekBarChangeLi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         setContentView(R.layout.sample_viewer);
 
         // inject views
@@ -64,16 +65,6 @@ public class SampleDisplay extends Activity implements SeekBar.OnSeekBarChangeLi
         updater = new Updater(field);
         field.addCallback(updater);
 
-
-
-    }
-
-    /**
-     * resume and load from backend storage
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
 
         final Intent intent = getIntent();
         Log.d(LOG_TAG, "started from intent:" + intent);
@@ -109,6 +100,16 @@ public class SampleDisplay extends Activity implements SeekBar.OnSeekBarChangeLi
             }
         }).start();
 
+
+    }
+
+    /**
+     * resume and load from backend storage
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 
     /**
@@ -127,7 +128,7 @@ public class SampleDisplay extends Activity implements SeekBar.OnSeekBarChangeLi
     @Override
     protected void onPause() {
         super.onPause();
-        samples = null;
+  //      samples = null;
     }
 
     public void first(View item) {

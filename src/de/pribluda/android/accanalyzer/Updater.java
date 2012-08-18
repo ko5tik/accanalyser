@@ -32,6 +32,10 @@ public class Updater implements SurfaceHolder.Callback, SampleSink {
     private final Paint energyFill;
 
 
+    /**
+     * create and register itself as callback
+     * @param surfaceHolder
+     */
     public Updater(SurfaceHolder surfaceHolder) {
         this.surfaceHolder = surfaceHolder;
 
@@ -46,6 +50,7 @@ public class Updater implements SurfaceHolder.Callback, SampleSink {
         energyFill.setStrokeWidth(2);
         energyFill.setStyle(Paint.Style.FILL);
 
+        surfaceHolder.addCallback(this);
     }
 
 
