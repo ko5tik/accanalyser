@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.io.File;
+import java.util.Arrays;
 
 /**
  * activity displaying file selector
@@ -21,6 +23,7 @@ import java.io.File;
  */
 public class FileSelector extends ListActivity {
     public static final String LOG_TAG = "strokeCounter.fileSelector";
+    public static final String FILE_TAG = "file";
     private SampleFileAdapter fileAdapter;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class FileSelector extends ListActivity {
         super.onResume();
         final File[] files = ObjectFactory.getRecorder(this).listFiles();
         Log.d(LOG_TAG, "files:" + files);
+        Arrays.sort(files);
         fileAdapter.setFileList(files);
     }
 
@@ -87,6 +91,14 @@ public class FileSelector extends ListActivity {
             final File item = (File) getItem(i);
 
             fileNameView.setText(item.getName());
+
+            fileNameView.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    final Intent intent = new Intent(context, SampleDisplay.class);
+                    intent.putExtra(FILE_TAG, item.getAbsolutePath());
+                    context.startActivity(intent);
+                }
+            });
 
             // configure remove button
             final View removeButton = fileView.findViewById(R.id.remove_button);

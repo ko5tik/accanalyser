@@ -10,7 +10,6 @@
                           android:anyDensity="true"/>
 
 
-
         <activity android:name="com.google.ads.AdActivity"
                   android:configChanges="keyboard|keyboardHidden|orientation"/>
 
@@ -21,7 +20,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".FileSelector" android:label="Select file"/>
+
+        <activity android:name=".FileSelector"
+                  android:label="Select file"/>
+        <activity android:name=".SampleDisplay"
+                  android:label="Recorded sample"
+                  android:screenOrientation="landscape"/>
 
         <!--
             The application's publisher ID assigned by AdMob
@@ -29,5 +33,5 @@
         <meta-data android:value="a14afd72dba70ad" android:name="ADMOB_PUBLISHER_ID"/>
         <service android:name=".RecordService"/>
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 </manifest>

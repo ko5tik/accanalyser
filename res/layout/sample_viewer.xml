@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical"
+        >
+
+
+    <SurfaceView android:id="@+id/renderingSurface"
+                 android:layout_width="fill_parent"
+                 android:layout_height="fill_parent"
+                 android:layout_weight="1"
+              />
+
+
+    <LinearLayout android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:id="@+id/sliderControl"
+            >
+
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_media_rew"
+                android:onClick="first"/>
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_media_previous"
+                android:onClick="previous"/>
+        <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+        </SeekBar>
+        <TextView
+                android:id="@+id/currentSample"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="...."
+                android:textSize="20dp"
+                />
+        <ImageButton
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:src="@android:drawable/ic_media_ff"
+                     android:onClick="next"/>
+        <ImageButton
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:src="@android:drawable/ic_media_next"
+                     android:onClick="last"/>
+    </LinearLayout>
+</LinearLayout>

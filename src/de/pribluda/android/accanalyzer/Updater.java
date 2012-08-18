@@ -151,7 +151,7 @@ public class Updater implements SurfaceHolder.Callback, SampleSink {
     }
 
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-
+        Log.d(LOG_TAG, "surface created:" + surfaceHolder);
     }
 
     public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height) {
