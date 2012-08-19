@@ -109,7 +109,6 @@ public class SampleDisplay extends Activity implements SeekBar.OnSeekBarChangeLi
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
     /**

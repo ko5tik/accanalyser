@@ -26,6 +26,7 @@
         <activity android:name=".SampleDisplay"
                   android:label="Recorded sample"
                   android:screenOrientation="landscape"/>
+        <activity android:name=".Settings" android:label="AccAnalyzer configuration"/>
 
         <!--
             The application's publisher ID assigned by AdMob

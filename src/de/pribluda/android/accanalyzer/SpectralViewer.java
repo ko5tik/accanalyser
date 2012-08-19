@@ -43,7 +43,7 @@ public class SpectralViewer extends Activity {
 
         sampler = ObjectFactory.getSampler(this);
         sampler.setWindowSize(64);
-        sampler.setSensorDelay(SensorManager.SENSOR_DELAY_FASTEST);
+        sampler.setSensorDelay(SensorManager.SENSOR_DELAY_GAME);
 
         recorder = ObjectFactory.getRecorder(this);
 

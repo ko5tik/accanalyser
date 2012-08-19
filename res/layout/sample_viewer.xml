@@ -19,17 +19,18 @@
                   android:orientation="horizontal"
                   android:id="@+id/sliderControl"
             >
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_media_previous"
+                android:onClick="first"/>
 
         <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@android:drawable/ic_media_rew"
-                android:onClick="first"/>
-        <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_media_previous"
                 android:onClick="previous"/>
+
         <SeekBar
                 android:id="@+id/seekBar"
                 android:layout_width="0dp"
