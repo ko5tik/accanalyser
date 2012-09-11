@@ -4,5 +4,7 @@
     <item android:id="@+id/file_list_action"
           android:title="Files"
           android:icon="@android:drawable/ic_menu_gallery"/>
-
+    <item android:id="@+id/settings"
+          android:title="Settings"
+          android:icon="@android:drawable/ic_menu_preferences"/>
 </menu>

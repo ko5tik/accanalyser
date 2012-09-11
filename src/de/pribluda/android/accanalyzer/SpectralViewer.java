@@ -43,7 +43,7 @@ public class SpectralViewer extends Activity {
 
         sampler = ObjectFactory.getSampler(this);
         sampler.setWindowSize(64);
-        sampler.setSensorDelay(SensorManager.SENSOR_DELAY_GAME);
+        sampler.setSensorDelay(SensorManager.SENSOR_DELAY_FASTEST);
 
         recorder = ObjectFactory.getRecorder(this);
 
@@ -99,7 +99,11 @@ public class SpectralViewer extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.file_list_action:
-                startActivity(new Intent(this,FileSelector.class));
+                startActivity(new Intent(this, FileSelector.class));
+                break;
+            case R.id.settings:
+                startActivity(new Intent(this, Settings.class));
+                break;
         }
         return false;
     }

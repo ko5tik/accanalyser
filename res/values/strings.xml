@@ -1,4 +1,7 @@
 <resources>
     <string name="resolution_choice">Window size (samples):</string>
     <string name="remove_question">Remove?</string>
+    <string name="settingsInfo">Settings  saved automatically when you leave activity</string>
+    <string name="sampleRateLabel">Sample rate:</string>
+    <string name="pleaseSelect">please select</string>
 </resources>
