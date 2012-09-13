@@ -4,4 +4,6 @@
     <string name="settingsInfo">Settings  saved automatically when you leave activity</string>
     <string name="sampleRateLabel">Sample rate:</string>
     <string name="pleaseSelect">please select</string>
+    <string name="windowSizeLabel">Window size (samples):</string>
+    <string name="updateRateLabel">Update rate (sec):</string>
 </resources>
