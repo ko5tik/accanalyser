@@ -2,7 +2,7 @@ package de.pribluda.android.accanalyzer;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.Spinner;
+import android.widget.SeekBar;
 import de.pribluda.android.andject.InjectView;
 import de.pribluda.android.andject.ViewInjector;
 
@@ -13,20 +13,22 @@ import de.pribluda.android.andject.ViewInjector;
  */
 public class Settings extends Activity {
 
-    @InjectView(id = R.id.sampleRateSpinner)
-    private Spinner sampleRate;
+    @InjectView(id = R.id.sampleRate)
+    private SeekBar sampleRate;
 
-    @InjectView(id = R.id.windowSizeSpinner)
-    private Spinner windowSize;
+    @InjectView(id = R.id.windowSize)
+    private SeekBar windowSize;
 
-    @InjectView(id = R.id.updateRateSpinner)
-    private Spinner updateRate;
+    @InjectView(id = R.id.updateRate)
+    private SeekBar updateRate;
 
+    private static final Integer[] windowSizes = {16, 32 , 64 , 128, 256, 512, 1024};
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
 
+        //  wire views
         ViewInjector.startActivity(this);
 
 
