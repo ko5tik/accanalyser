@@ -33,7 +33,7 @@ public class Configuration {
     }
 
 
-    public Configuration getInstance(Context context) {
+    public static Configuration getInstance(Context context) {
 
         if (null == instance) {
             instance = new Configuration(context);
@@ -76,5 +76,13 @@ public class Configuration {
 
     public void setWindowSize(int windowSize) {
         this.windowSize = windowSize;
+    }
+
+    /**
+     * set sample rate from slider.
+     * @param selectedSampleRateValue selected slider value
+     */
+    public void setSampleRate(int selectedSampleRateValue) {
+
     }
 }
