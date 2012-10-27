@@ -22,9 +22,13 @@ public class Settings extends Activity {
 
     @InjectView(id = R.id.windowSize)
     private SeekBar windowSize;
+    @InjectView(id = R.id.selectedWindowSizeValue)
+    private TextView windowSizeLabel;
 
     @InjectView(id = R.id.updateRate)
     private SeekBar updateRate;
+    @InjectView(id = R.id.selectedUpdateRateValue)
+    private TextView updateRateLabel;
 
     private static final int[] windowSizes = {16, 32, 64, 128, 256, 512, 1024};
 
@@ -50,7 +54,6 @@ public class Settings extends Activity {
                 if (fromUser) {
                     updateSampleRate(i);
                 }
-
                 // update sample rate label
                 sampleRateLabel.setText(sampleRateTexts[i]);
 
@@ -65,8 +68,11 @@ public class Settings extends Activity {
 
 
         updateRate.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-
+            public void onProgressChanged(SeekBar seekBar, int i, boolean fromUser) {
+                if (fromUser) {
+                    updateUpdateRate(i);
+                }
+                updateRateLabel.setText("" + i);
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -76,14 +82,41 @@ public class Settings extends Activity {
             }
         });
 
+
+        windowSize.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            public void onProgressChanged(SeekBar seekBar, int i, boolean fromUser) {
+                if (fromUser) {
+                    updateWindowSize(windowSizes[i]);
+                }
+                sampleRateLabel.setText("" + windowSizes[i]);
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+    }
+
+    private void updateWindowSize(int windowSize) {
+        configuration.setWindowSize(windowSize);
+    }
+
+    private void updateUpdateRate(int updateRate) {
+        configuration.setUpdateRate(updateRate * 1000);
     }
 
     /**
-     *  update sample rate.  choose proper value from array
+     * update sample rate.  choose proper value from array
+     *
      * @param selectedSampleRate
      */
     private void updateSampleRate(int selectedSampleRate) {
-         configuration.setSampleRate(sampleRates[selectedSampleRate]);
+        configuration.setSampleRate(sampleRates[selectedSampleRate]);
     }
 
 
