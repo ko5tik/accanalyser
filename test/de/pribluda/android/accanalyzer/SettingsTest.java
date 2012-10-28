@@ -1,5 +1,6 @@
 package de.pribluda.android.accanalyzer;
 
+import android.app.Activity;
 import android.hardware.SensorManager;
 import android.widget.SeekBar;
 import mockit.Deencapsulation;
@@ -21,7 +22,9 @@ public class SettingsTest {
      * on resume shall retrieve values from configuration and set proper slider values
      */
     @Test
-    public void testResuming(@Mocked(methods = {"onResume", "<clinit>"}, inverse = true) final Settings settings,
+    public void testResuming(@Mocked(methods = {"onResume", "<clinit>"}, inverse= true) final Settings settings,
+                             // mock away underlying activity
+                             @Mocked Activity activity,
                              @Mocked final Configuration configuration,
                              @Mocked final SeekBar sensorDelayBar,
                              @Mocked final SeekBar windowSizeBar,
@@ -47,7 +50,7 @@ public class SettingsTest {
 
 
                 configuration.getUpdateRate();
-                returns(5000);
+                returns(4000);
                 updateRateBar.setProgress(3);
 
             }
@@ -70,6 +73,8 @@ public class SettingsTest {
      */
     @Test
     public void testSavingOnPause(@Mocked(methods = {"onPause", "<clinit>"}, inverse = true) final Settings settings,
+                                  // mock away underlying activity
+                                  @Mocked Activity activity,
                                   @Mocked final Configuration configuration,
                                   @Mocked final SeekBar sensorDelayBar,
                                   @Mocked final SeekBar windowSizeBar,
@@ -82,7 +87,22 @@ public class SettingsTest {
 
         new Expectations() {
             {
+
+                sensorDelayBar.getProgress(); returns(3);
+                configuration.setSensorDelay(SensorManager.SENSOR_DELAY_FASTEST);
+
+
+                windowSizeBar.getProgress(); returns(4);
+                configuration.setWindowSize(256);
+
+
+                updateRateBar.getProgress(); returns(4);
+                configuration.setUpdateRate(5000);
+
+                configuration.save(settings);
             }
         };
+
+        Deencapsulation.invoke(settings, "onPause");
     }
 }
