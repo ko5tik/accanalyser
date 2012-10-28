@@ -1,11 +1,11 @@
 <resources>
     <string name="resolution_choice">Window size (samples):</string>
     <string name="remove_question">Remove?</string>
-    <string name="settingsInfo">Settings  saved automatically in activuty exit</string>
-    <string name="sampleRateLabel">Sample rate:</string>
+    <string name="settingsInfo">Settings  saved automatically in activity exit!</string>
+    <string name="sampleRateLabel">Sensor sample rate:</string>
     <string name="pleaseSelect">please select</string>
-    <string name="windowSizeLabel">Window size (samples):</string>
-    <string name="updateRateLabel">Update rate (sec):</string>
+    <string name="windowSizeLabel">Fourier window size (samples):</string>
+    <string name="updateRateLabel">Display update interval (sec):</string>
 
     <string name="sampleRateNormal">Normal</string>
     <string name="sampleRateUI">UI</string>

@@ -85,7 +85,7 @@
             <SeekBar android:id="@+id/windowSize"
                      android:layout_width="fill_parent"
                      android:layout_height="wrap_content"
-                     android:max="500"
+                     android:max="6"
                     />
 
             <ImageView android:src="@drawable/thin_separator_h"
@@ -118,7 +118,7 @@
             <SeekBar android:id="@+id/updateRate"
                      android:layout_width="fill_parent"
                      android:layout_height="wrap_content"
-                     android:max="500"
+                     android:max="4"
                     />
 
             <ImageView android:src="@drawable/thin_separator_h"

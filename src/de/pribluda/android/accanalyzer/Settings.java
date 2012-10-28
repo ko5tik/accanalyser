@@ -72,7 +72,6 @@ public class Settings extends Activity {
             public void onProgressChanged(SeekBar seekBar, int i, boolean fromUser) {
                 // update sample rate label
                 sensorDelayLabel.setText(sampleRateTexts[i]);
-
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -85,7 +84,7 @@ public class Settings extends Activity {
 
         updateRateBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int i, boolean fromUser) {
-                updateRateLabel.setText("" + i);
+                updateRateLabel.setText("" +  (i + 1));
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -98,8 +97,7 @@ public class Settings extends Activity {
 
         windowSizeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int i, boolean fromUser) {
-
-                sensorDelayLabel.setText("" + windowSizesLookup[i]);
+                windowSizeLabel.setText("" + windowSizesLookup[i]);
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
