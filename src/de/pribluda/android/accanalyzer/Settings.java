@@ -16,17 +16,17 @@ import de.pribluda.android.andject.ViewInjector;
 public class Settings extends Activity {
 
     @InjectView(id = R.id.sampleRate)
-    private SeekBar sampleRate;
+    private SeekBar sensorDelayBar;
     @InjectView(id = R.id.selectedSampleRateValue)
-    private TextView sampleRateLabel;
+    private TextView sensorDelayLabel;
 
     @InjectView(id = R.id.windowSize)
-    private SeekBar windowSize;
+    private SeekBar windowSizeBar;
     @InjectView(id = R.id.selectedWindowSizeValue)
     private TextView windowSizeLabel;
 
     @InjectView(id = R.id.updateRate)
-    private SeekBar updateRate;
+    private SeekBar updateRateBar;
     @InjectView(id = R.id.selectedUpdateRateValue)
     private TextView updateRateLabel;
 
@@ -48,14 +48,14 @@ public class Settings extends Activity {
         ViewInjector.startActivity(this);
 
 
-        sampleRate.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        sensorDelayBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int i, boolean fromUser) {
                 // only if originating from user
                 if (fromUser) {
                     updateSampleRate(i);
                 }
                 // update sample rate label
-                sampleRateLabel.setText(sampleRateTexts[i]);
+                sensorDelayLabel.setText(sampleRateTexts[i]);
 
             }
 
@@ -67,7 +67,7 @@ public class Settings extends Activity {
         });
 
 
-        updateRate.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        updateRateBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int i, boolean fromUser) {
                 if (fromUser) {
                     updateUpdateRate(i);
@@ -83,12 +83,12 @@ public class Settings extends Activity {
         });
 
 
-        windowSize.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        windowSizeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int i, boolean fromUser) {
                 if (fromUser) {
                     updateWindowSize(windowSizes[i]);
                 }
-                sampleRateLabel.setText("" + windowSizes[i]);
+                sensorDelayLabel.setText("" + windowSizes[i]);
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -100,6 +100,22 @@ public class Settings extends Activity {
             }
         });
 
+    }
+
+    /**
+     * set sliders from configuration
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    /**
+     * set configuration values and save to preferences
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     private void updateWindowSize(int windowSize) {

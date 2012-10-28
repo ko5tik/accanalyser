@@ -78,11 +78,5 @@ public class Configuration {
         this.windowSize = windowSize;
     }
 
-    /**
-     * set sample rate from slider.
-     * @param selectedSampleRateValue selected slider value
-     */
-    public void setSampleRate(int selectedSampleRateValue) {
 
-    }
 }
