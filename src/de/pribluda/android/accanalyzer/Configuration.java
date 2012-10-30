@@ -16,11 +16,11 @@ public class Configuration {
     private static final String PREFERENCE_TAG = Configuration.class.getCanonicalName();
 
     @InjectPreference
-    int sensorDelay = SensorManager.SENSOR_DELAY_FASTEST;
+    private int sensorDelay = SensorManager.SENSOR_DELAY_FASTEST;
     @InjectPreference
-    int windowSize = 128;
+    private int windowSize = 128;
     @InjectPreference
-    int updateRate = 1000;
+    private int updateRate = 1000;
 
     private static Configuration instance;
 

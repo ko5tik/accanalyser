@@ -2,7 +2,6 @@ package de.pribluda.android.accanalyzer;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
@@ -31,9 +30,12 @@ public class SpectralViewer extends Activity {
 
     private Recorder recorder;
 
+    Configuration configuration;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        configuration = Configuration.getInstance(this);
 
         setContentView(R.layout.stroke_counter);
         // inject views
@@ -42,8 +44,6 @@ public class SpectralViewer extends Activity {
         field = surfaceView.getHolder();
 
         sampler = ObjectFactory.getSampler(this);
-        sampler.setWindowSize(64);
-        sampler.setSensorDelay(SensorManager.SENSOR_DELAY_FASTEST);
 
         recorder = ObjectFactory.getRecorder(this);
 
@@ -60,7 +60,24 @@ public class SpectralViewer extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        sampler.start();
+
+        if (sampler.getWindowSize() != configuration.getWindowSize()
+                || sampler.getSensorDelay() != configuration.getSensorDelay()
+                || sampler.getUpdateDelay() != configuration.getUpdateRate()) {
+            new Thread(new Runnable() {
+                public void run() {
+                    sampler.stop();
+                    sampler.setSensorDelay(configuration.getSensorDelay());
+                    sampler.setWindowSize(configuration.getWindowSize());
+                    sampler.setUpdateDelay(configuration.getUpdateRate());
+
+                    sampler.start();
+                }
+            }).start();
+
+        } else {
+            sampler.start();
+        }
     }
 
 
