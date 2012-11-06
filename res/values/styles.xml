@@ -1,0 +1,11 @@
+<resources>
+    <style name="vSeparator">
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_width">1px</item>
+        <item name="android:background">#90ffffff</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+    </style>
+</resources>
