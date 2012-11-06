@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
-import android.widget.ToggleButton;
+import android.widget.CheckBox;
 import de.pribluda.android.accmeter.Sampler;
 import de.pribluda.android.andject.InjectView;
 import de.pribluda.android.andject.ViewInjector;
@@ -23,7 +23,7 @@ public class SpectralViewer extends Activity {
     private Sampler sampler;
 
     @InjectView(id = R.id.startStopButton)
-    ToggleButton recordButton;
+    CheckBox recordButton;
 
     @InjectView(id = R.id.displayField)
     private SurfaceView surfaceView;

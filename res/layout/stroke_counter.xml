@@ -5,21 +5,53 @@
               android:layout_height="fill_parent"
               android:orientation="vertical"
         >
-    <LinearLayout     android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:orientation="horizontal">
-       <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="Recording "
-               android:layout_gravity="center_vertical"
-               />
-        <ToggleButton
+    <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recording:"
+                android:layout_gravity="center_vertical"
+                />
+        <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/startStopButton"
                 android:onClick="toggleRecord"/>
 
+        <View android:layout_height="fill_parent"
+              android:layout_width="1px"
+              android:background="#90ffffff"
+              android:layout_marginBottom="10dp"
+              android:layout_marginTop="10dp"
+              android:layout_marginLeft="5dp"
+              android:layout_marginRight="5dp"
+        />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fourrier Window:"
+                android:layout_gravity="center_vertical"
+                />
+
+        <TextView
+                android:id="@+id/windowSizeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="412"
+                android:layout_gravity="center_vertical"
+                />
+
+        <View android:layout_height="fill_parent"
+              android:layout_width="1px"
+              android:background="#90ffffff"
+              android:layout_marginBottom="10dp"
+              android:layout_marginTop="10dp"
+              android:layout_marginLeft="5dp"
+              android:layout_marginRight="5dp"
+                />
     </LinearLayout>
     <!--  game field is derived from table layout, so all attributes apply here -->
 
