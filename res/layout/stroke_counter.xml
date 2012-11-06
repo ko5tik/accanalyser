@@ -32,7 +32,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fourrier Window:"
+                android:text="Window:"
                 android:layout_gravity="center_vertical"
                 />
 
@@ -52,6 +52,46 @@
               android:layout_marginLeft="5dp"
               android:layout_marginRight="5dp"
                 />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Update (ms):"
+                android:layout_gravity="center_vertical"
+                />
+
+        <TextView
+                android:id="@+id/updateIntervalLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1000"
+                android:layout_gravity="center_vertical"
+                />
+
+        <View android:layout_height="fill_parent"
+              android:layout_width="1px"
+              android:background="#90ffffff"
+              android:layout_marginBottom="10dp"
+              android:layout_marginTop="10dp"
+              android:layout_marginLeft="5dp"
+              android:layout_marginRight="5dp"
+                />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sensor:"
+                android:layout_gravity="center_vertical"
+                />
+
+        <TextView
+                android:id="@+id/updateIntervalLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UI"
+                android:layout_gravity="center_vertical"
+                />
+
     </LinearLayout>
     <!--  game field is derived from table layout, so all attributes apply here -->
 
