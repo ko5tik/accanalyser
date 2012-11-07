@@ -106,7 +106,7 @@
                         />
                 <TextView
                         android:id="@+id/selectedUpdateRateValue"
-                        android:text="xx"
+                        android:text="1"
                         android:padding="3sp"
                         android:layout_gravity="right|center_vertical"
                         android:layout_width="wrap_content"

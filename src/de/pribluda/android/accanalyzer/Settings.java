@@ -94,6 +94,7 @@ public class Settings extends Activity {
             }
         });
 
+        windowSizeLabel.setText("1");
 
         windowSizeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             public void onProgressChanged(SeekBar seekBar, int i, boolean fromUser) {
