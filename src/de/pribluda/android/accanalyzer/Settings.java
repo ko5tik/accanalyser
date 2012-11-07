@@ -45,7 +45,7 @@ public class Settings extends Activity {
     }};
 
     public static final int[] sensorDelayLookup = {SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI, SensorManager.SENSOR_DELAY_GAME, SensorManager.SENSOR_DELAY_FASTEST};
-    private static final Map<Integer, Integer> reverseSensorDelayLookup = new HashMap() {
+    public static final Map<Integer, Integer> reverseSensorDelayLookup = new HashMap() {
         {
             put(SensorManager.SENSOR_DELAY_NORMAL, 0);
             put(SensorManager.SENSOR_DELAY_UI, 1);

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
 import android.widget.CheckBox;
+import android.widget.TextView;
 import de.pribluda.android.accmeter.Sampler;
 import de.pribluda.android.andject.InjectView;
 import de.pribluda.android.andject.ViewInjector;
@@ -27,6 +28,15 @@ public class SpectralViewer extends Activity {
 
     @InjectView(id = R.id.displayField)
     private SurfaceView surfaceView;
+
+    @InjectView(id = R.id.windowSizeLabel)
+    TextView windowSizeLabel;
+
+    @InjectView(id = R.id.updateIntervalLabel)
+    TextView updateIntervalLabel;
+
+    @InjectView(id = R.id.sensorRateLabel)
+    TextView sensorDelayLabel;
 
     private Recorder recorder;
 
@@ -60,6 +70,11 @@ public class SpectralViewer extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        // set up labels for display
+        windowSizeLabel.setText(""  + configuration.getWindowSize());
+        updateIntervalLabel.setText("" + configuration.getUpdateRate());
+        sensorDelayLabel.setText(Settings.sampleRateTexts[Settings.reverseSensorDelayLookup.get(configuration.getSensorDelay())]);
 
         if (sampler.getWindowSize() != configuration.getWindowSize()
                 || sampler.getSensorDelay() != configuration.getSensorDelay()

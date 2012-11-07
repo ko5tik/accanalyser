@@ -63,7 +63,7 @@
                 />
 
         <TextView
-                android:id="@+id/updateIntervalLabel"
+                android:id="@+id/sensorRateLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="UI"
