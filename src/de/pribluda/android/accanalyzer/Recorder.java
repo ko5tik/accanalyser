@@ -1,6 +1,5 @@
 package de.pribluda.android.accanalyzer;
 
-import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 import de.pribluda.android.accmeter.Sampler;
@@ -22,7 +21,6 @@ public class Recorder {
     public static final String DIRECTORY = "acc_data";
     public static final String LOG_TAG = "strokeCounter.recorder";
     static private Recorder instance;
-    private final Context context;
     private final DateFormat format = new SimpleDateFormat("yyyyMMdd_HHmmss");
 
 
@@ -31,23 +29,23 @@ public class Recorder {
     private FileSink sink;
     private final Sampler sampler;
 
-    private Recorder(Context context, Sampler sampler) {
-        this.context = context;
+    private Recorder( Sampler sampler) {
+
         this.sampler = sampler;
         basedir = new File(Environment.getExternalStorageDirectory(), DIRECTORY);
     }
 
 
-    public static synchronized Recorder getInstance(Context context, Sampler sampler) {
+    public static synchronized Recorder getInstance( Sampler sampler) {
         if (null == instance) {
-            instance = new Recorder(context, sampler);
+            instance = new Recorder(sampler);
         }
         return instance;
     }
 
 
     /**
-     * start recording samples  into automaticatlly generated file
+     * start recording samples  into automatically generated file
      *
      * @param sampler
      */
