@@ -18,6 +18,7 @@ import de.pribluda.android.jsonmarshaller.JSONUnmarshaller;
 
 import java.io.File;
 import java.io.FileReader;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -40,7 +41,7 @@ public class SampleDisplay extends Activity implements SeekBar.OnSeekBarChangeLi
     @InjectView(id = R.id.renderingSurface)
     private SurfaceView surfaceView;
 
-    private List<Sample> samples;
+    private List<Sample> samples = Collections.EMPTY_LIST;
 
     private int sampleIndex;
     private SurfaceHolder field;
@@ -127,7 +128,7 @@ public class SampleDisplay extends Activity implements SeekBar.OnSeekBarChangeLi
     @Override
     protected void onPause() {
         super.onPause();
-  //      samples = null;
+        //      samples = null;
     }
 
     public void first(View item) {
@@ -163,11 +164,11 @@ public class SampleDisplay extends Activity implements SeekBar.OnSeekBarChangeLi
     public void onProgressChanged(SeekBar seekBar, int i, boolean byUser) {
         sampleIndex = i;
 
-        if(sampleIndex < 0 )
+        if (sampleIndex < 0)
             sampleIndex = 0;
 
-        if(sampleIndex > samples.size() -1)
-            sampleIndex = samples.size() -1;
+        if (sampleIndex > samples.size() - 1)
+            sampleIndex = samples.size() - 1;
 
         currentSample.setText("" + sampleIndex);
 

@@ -28,7 +28,7 @@
                   android:screenOrientation="landscape"/>
         <activity android:name=".Settings" android:label="AccAnalyzer configuration"/>
 
-
+        <!-- this service must be present so  app can run threads in background  -->
         <service android:name=".RecordService"/>
     </application>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>

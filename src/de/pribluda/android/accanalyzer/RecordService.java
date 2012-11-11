@@ -26,7 +26,7 @@ public class RecordService extends Service {
         super.onCreate();
 
         sampler = Sampler.getInstance(this);
-        recorder = Recorder.getInstance(this, sampler);
+        recorder = Recorder.getInstance( sampler);
     }
 
     /**
