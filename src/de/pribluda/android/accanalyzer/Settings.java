@@ -1,8 +1,10 @@
 package de.pribluda.android.accanalyzer;
 
+import android.R;
 import android.app.Activity;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import de.pribluda.android.andject.InjectView;
@@ -16,22 +18,8 @@ import java.util.Map;
  *
  * @author Konstantin Pribluda
  */
-public class Settings extends Activity {
+public class Settings extends PreferenceActivity {
 
-    @InjectView(id = R.id.sampleRate)
-    private SeekBar sensorDelayBar;
-    @InjectView(id = R.id.selectedSampleRateValue)
-    private TextView sensorDelayLabel;
-
-    @InjectView(id = R.id.windowSize)
-    private SeekBar windowSizeBar;
-    @InjectView(id = R.id.selectedWindowSizeValue)
-    private TextView windowSizeLabel;
-
-    @InjectView(id = R.id.updateRate)
-    private SeekBar updateRateBar;
-    @InjectView(id = R.id.selectedUpdateRateValue)
-    private TextView updateRateLabel;
 
     private static final int[] windowSizesLookup = {16, 32, 64, 128, 256, 512, 1024};
     private final static Map<Integer, Integer> reverseWindowSizesLookup = new HashMap<Integer, Integer>() {{
@@ -55,96 +43,14 @@ public class Settings extends Activity {
     };
     public static final int[] sampleRateTexts = {R.string.sampleRateNormal, R.string.sampleRateUI, R.string.sampleRateGame, R.string.sampleRateFastest};
 
-    private Configuration configuration;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        configuration = Configuration.getInstance(this);
-
-        setContentView(R.layout.settings);
-
-        //  wire views
-        ViewInjector.startActivity(this);
-
-
-        sensorDelayBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            public void onProgressChanged(SeekBar seekBar, int i, boolean fromUser) {
-                // update sample rate label
-                sensorDelayLabel.setText(sampleRateTexts[i]);
-            }
-
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-
-
-        updateRateBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            public void onProgressChanged(SeekBar seekBar, int i, boolean fromUser) {
-                updateRateLabel.setText("" +  (i + 1));
-            }
-
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-
-        windowSizeLabel.setText("1");
-
-        windowSizeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            public void onProgressChanged(SeekBar seekBar, int i, boolean fromUser) {
-                windowSizeLabel.setText("" + windowSizesLookup[i]);
-            }
-
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
+        addPreferencesFromResource(R.xml.preferences);
     }
 
-    /**
-     * set sliders from configuration
-     */
     @Override
     protected void onResume() {
-        super.onResume();
-
-        //  set up sliders from  configuration
-
-        // sensor delay
-        sensorDelayBar.setProgress(reverseSensorDelayLookup.get(configuration.getSensorDelay()));
-
-        // window size
-        windowSizeBar.setProgress(reverseWindowSizesLookup.get(configuration.getWindowSize()));
-
-        // update rate
-        updateRateBar.setProgress(configuration.getUpdateRate() / 1000 - 1);
-
+        super.onResume();    //To change body of overridden methods use File | Settings | File Templates.
     }
-
-    /**
-     * set configuration values and save to preferences
-     */
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        configuration.setSensorDelay(sensorDelayLookup[sensorDelayBar.getProgress()]);
-        configuration.setWindowSize(windowSizesLookup[windowSizeBar.getProgress()]);
-        configuration.setUpdateRate((updateRateBar.getProgress() + 1) * 1000);
-
-        configuration.save(this);
-
-    }
-
 }

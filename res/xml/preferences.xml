@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+                    android:key="sensorDelay"
+                    android:title="@string/sensorSpeed"
+                    android:summary="@string/sensorSpeedSummary"
+                    android:dialogTitle="@string/sensorSpeed"
+                    android:entries="@array/sensorSpeedEntries"
+                    android:entryValues="@array/sensorSpeedEntryValues"
+                    android:defaultValue="@string/seosorSpeedDefaultValue"/>
+    <ListPreference
+                    android:key="sensorDelay"
+                    android:title="@string/sensorSpeed"
+                    android:summary="@string/sensorSpeedSummary"
+                    android:dialogTitle="@string/sensorSpeed"
+                    android:entries="@array/sensorSpeedEntries"
+                    android:entryValues="@array/sensorSpeedEntryValues"
+                    android:defaultValue="@string/seosorSpeedDefaultValue"/>
+    <ListPreference
+                    android:key="sensorDelay"
+                    android:title="@string/sensorSpeed"
+                    android:summary="@string/sensorSpeedSummary"
+                    android:dialogTitle="@string/sensorSpeed"
+                    android:entries="@array/sensorSpeedEntries"
+                    android:entryValues="@array/sensorSpeedEntryValues"
+                    android:defaultValue="@string/seosorSpeedDefaultValue"/>
+
+</PreferenceScreen>
