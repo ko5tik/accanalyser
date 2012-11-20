@@ -42,7 +42,7 @@
       <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="jdk" jdkName="1.7" jdkType="JavaSDK" />
+    <orderEntry type="jdk" jdkName="Android 1.6 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: de.pribluda.android:andject:0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: de.pribluda.android:jsonmarshaller:0.6" level="project" />

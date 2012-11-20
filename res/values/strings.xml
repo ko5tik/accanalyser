@@ -1,14 +1,20 @@
 <resources>
     <string name="resolution_choice">Window size (samples):</string>
     <string name="remove_question">Remove?</string>
-    <string name="settingsInfo">Settings  saved automatically in activity exit!</string>
-    <string name="sampleRateLabel">Sensor sample rate:</string>
+    <string name="settingsInfo">Settings saved automatically in activity exit!</string>
+    <string name="sampleRateLabel">Sensor sample rate</string>
     <string name="pleaseSelect">please select</string>
-    <string name="windowSizeLabel">Fourier window size (samples):</string>
-    <string name="updateRateLabel">Display update interval (sec):</string>
+    <string name="windowSizeLabel">Window size</string>
+    <string name="updateRateLabel">Display update interval</string>
 
     <string name="sampleRateNormal">Normal</string>
     <string name="sampleRateUI">UI</string>
     <string name="sampleRateGame">Game</string>
     <string name="sampleRateFastest">Fastest</string>
+    <string name="sensorSpeed">Sensor speed</string>
+    <string name="sensorSpeedSummary">Update rate for accelerometer</string>
+    <string name="windowSizeSummary">Siye of fourrier transformation window</string>
+    <string name="updateIntervalSummary">Display and file update interwal (seconds)</string>
+    <string name="updateRateDefaultValue">1000</string>
+
 </resources>

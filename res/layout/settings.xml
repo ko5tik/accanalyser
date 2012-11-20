@@ -85,7 +85,7 @@
             <SeekBar android:id="@+id/windowSize"
                      android:layout_width="fill_parent"
                      android:layout_height="wrap_content"
-                     android:max="6"
+                     android:max="7"
                     />
 
             <ImageView android:src="@drawable/thin_separator_h"
