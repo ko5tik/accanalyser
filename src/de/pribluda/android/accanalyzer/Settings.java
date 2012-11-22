@@ -12,13 +12,12 @@ import android.preference.PreferenceManager;
 public class Settings extends PreferenceActivity {
 
 
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
 
         PreferenceManager prefMgr = getPreferenceManager();
-        prefMgr.setSharedPreferencesName("my_preferences");
+        prefMgr.setSharedPreferencesName(Configuration.class.getCanonicalName());
         prefMgr.setSharedPreferencesMode(MODE_PRIVATE);
 
     }

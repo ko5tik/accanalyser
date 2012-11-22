@@ -6,12 +6,12 @@
         <item>Game</item>
         <item>Fastest</item>
     </string-array>
-    <integer-array name="sensorSpeedEntryValues">
+    <string-array name="sensorSpeedEntryValues">
         <item>3</item>
         <item>2</item>
         <item>1</item>
         <item>0</item>
-    </integer-array>
+    </string-array>
 
 
     <string-array name="windowSizeEntries">
@@ -21,6 +21,14 @@
         <item>1024</item>
         <item>2048</item>
     </string-array>
+    <integer-array name="windowSizeEntryValues">
+        <item>128</item>
+        <item>256</item>
+        <item>512</item>
+        <item>1024</item>
+        <item>2048</item>
+    </integer-array>
+
     <string-array name="updateRateEntries">
         <item>0.5</item>
         <item>1</item>
@@ -29,23 +37,14 @@
         <item>4</item>
         <item>5</item>
     </string-array>
-    <integer-array name="updateRateEntryValues">
+    <string-array name="updateRateEntryValues">
         <item>500</item>
         <item>1000</item>
         <item>2000</item>
         <item>3000</item>
         <item>4000</item>
         <item>5000</item>
-    </integer-array>
-
-
-    <integer-array name="windowSizeEntryValues">
-        <item>128</item>
-        <item>256</item>
-        <item>512</item>
-        <item>1024</item>
-        <item>2048</item>
-    </integer-array>
+    </string-array>
 
 
 </resources>

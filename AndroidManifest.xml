@@ -3,7 +3,8 @@
           android:versionCode="1"
           android:versionName="0.1"
         >
-    <uses-sdk android:minSdkVersion="3"/>
+    <uses-sdk android:minSdkVersion="4"/>
+
     <application android:label="Acceleration spectrum monitor" android:theme="@android:style/Theme.Black"
                  android:icon="@drawable/ic_launcher">
         <supports-screens android:smallScreens="true"
@@ -23,10 +24,12 @@
 
         <activity android:name=".FileSelector"
                   android:label="Select file"/>
+
         <activity android:name=".SampleDisplay"
                   android:label="Recorded sample"
                   android:screenOrientation="landscape"/>
-        <activity android:name=".Settings" android:label="AccAnalyzer configuration"/>
+
+        <activity android:name=".Settings" android:label="Settings"/>
 
         <!-- this service must be present so  app can run threads in background  -->
         <service android:name=".RecordService"/>

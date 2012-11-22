@@ -79,9 +79,10 @@ public class SpectralViewer extends Activity {
         try {
             configuration.load(this);
         } catch (IllegalAccessException e) {
-           Log.e(LOG_TAG,"shall not happen, something nastyt went wrong");
+           Log.e(LOG_TAG,"shall not happen, something nasty went wrong");
         }
 
+        Log.d(LOG_TAG,"confifuration: " + configuration);
         // set up labels for display
         windowSizeLabel.setText(""  + configuration.getWindowSize());
         updateIntervalLabel.setText("" + configuration.getUpdateRate());

@@ -71,5 +71,12 @@ public class Configuration {
         this.windowSize = windowSize;
     }
 
-
+    @Override
+    public String toString() {
+        return "Configuration{" +
+                "sensorDelay=" + sensorDelay +
+                ", windowSize=" + windowSize +
+                ", updateRate=" + updateRate +
+                '}';
+    }
 }
