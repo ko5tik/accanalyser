@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <de.pribluda.android.accanalyzer.IntegerListPreference
+            android:key="sensorDelay"
+            android:title="@string/sensorSpeed"
+            android:summary="@string/sensorSpeedSummary"
+            android:dialogTitle="@string/sensorSpeed"
+            android:entries="@array/sensorSpeedEntries"
+            android:entryValues="@array/sensorSpeedEntryValues"
+            android:defaultValue="@string/sensorSpeedDefaultValue"
+            />
+    <de.pribluda.android.accanalyzer.IntegerListPreference
+            android:key="windowSize"
+            android:title="@string/windowSizeLabel"
+            android:summary="@string/windowSizeSummary"
+            android:dialogTitle="@string/windowSizeLabel"
+            android:entries="@array/windowSizeEntries"
+            android:entryValues="@array/windowSizeEntryValues"
+            android:defaultValue="@string/windowSizeDefaultValue"/>
+     <de.pribluda.android.accanalyzer.IntegerListPreference
+             android:key="updateInterval"
+             android:title="@string/updateRateLabel"
+             android:summary="@string/updateIntervalSummary"
+             android:dialogTitle="@string/updateRateLabel"
+             android:entries="@array/updateRateEntries"
+             android:entryValues="@array/updateRateEntryValues"
+             android:defaultValue="@string/updateRateDefaultValue"/>
+</PreferenceScreen>

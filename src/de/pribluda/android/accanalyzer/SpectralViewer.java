@@ -16,6 +16,11 @@ import de.pribluda.android.andject.ViewInjector;
  */
 public class SpectralViewer extends Activity {
 
+
+
+    public static final int[] sampleRateTexts = {R.string.sampleRateFastest, R.string.sampleRateGame,R.string.sampleRateUI,R.string.sampleRateNormal};
+
+
     public static final String LOG_TAG = "strokeCounter";
     SurfaceHolder field;
 
@@ -71,10 +76,18 @@ public class SpectralViewer extends Activity {
     protected void onResume() {
         super.onResume();
 
+        try {
+            configuration.load(this);
+        } catch (IllegalAccessException e) {
+           Log.e(LOG_TAG,"shall not happen, something nasty went wrong");
+        }
+
+        Log.d(LOG_TAG,"confifuration: " + configuration);
         // set up labels for display
         windowSizeLabel.setText(""  + configuration.getWindowSize());
         updateIntervalLabel.setText("" + configuration.getUpdateRate());
-        sensorDelayLabel.setText(Settings.sampleRateTexts[Settings.reverseSensorDelayLookup.get(configuration.getSensorDelay())]);
+
+        sensorDelayLabel.setText(sampleRateTexts[configuration.getSensorDelay()]);
 
         if (sampler.getWindowSize() != configuration.getWindowSize()
                 || sampler.getSensorDelay() != configuration.getSensorDelay()

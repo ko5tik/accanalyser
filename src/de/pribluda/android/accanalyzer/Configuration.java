@@ -26,10 +26,14 @@ public class Configuration {
 
     public Configuration(Context context) {
         try {
-            PreferenceInjector.inject(this, context.getSharedPreferences(PREFERENCE_TAG, Context.MODE_PRIVATE));
+            load(context);
         } catch (IllegalAccessException e) {
             Log.e(LOG_TAG, "exception while reading configuration", e);
         }
+    }
+
+    public void load(Context context) throws IllegalAccessException {
+        PreferenceInjector.inject(this, context.getSharedPreferences(PREFERENCE_TAG, Context.MODE_PRIVATE));
     }
 
 
@@ -42,17 +46,6 @@ public class Configuration {
         return instance;
     }
 
-
-    /**
-     * save preferences
-     */
-    public void save(Context context) {
-        try {
-            PreferenceInjector.eject(this, context.getSharedPreferences(PREFERENCE_TAG, Context.MODE_PRIVATE));
-        } catch (IllegalAccessException e) {
-            Log.e(LOG_TAG, "exception while saving configuration", e);
-        }
-    }
 
     public int getSensorDelay() {
         return sensorDelay;
@@ -78,5 +71,12 @@ public class Configuration {
         this.windowSize = windowSize;
     }
 
-
+    @Override
+    public String toString() {
+        return "Configuration{" +
+                "sensorDelay=" + sensorDelay +
+                ", windowSize=" + windowSize +
+                ", updateRate=" + updateRate +
+                '}';
+    }
 }

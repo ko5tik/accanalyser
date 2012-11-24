@@ -17,6 +17,6 @@ public class ObjectFactory {
 
 
     public static Recorder getRecorder(Context context) {
-        return Recorder.getInstance(context, getSampler(context));
+        return Recorder.getInstance( getSampler(context));
     }
 }
