@@ -21,13 +21,13 @@
         <item>1024</item>
         <item>2048</item>
     </string-array>
-    <integer-array name="windowSizeEntryValues">
+    <string-array name="windowSizeEntryValues">
         <item>128</item>
         <item>256</item>
         <item>512</item>
         <item>1024</item>
         <item>2048</item>
-    </integer-array>
+    </string-array>
 
     <string-array name="updateRateEntries">
         <item>0.5</item>

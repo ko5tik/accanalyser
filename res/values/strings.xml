@@ -17,5 +17,5 @@
 
     <string name="updateRateDefaultValue">1000</string>
     <string name="windowSizeDefaultValue">1024</string>
-
+    <string name="sensorSpeedDefaultValue">3</string>
 </resources>

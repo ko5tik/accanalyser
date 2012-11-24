@@ -3,6 +3,7 @@ package de.pribluda.android.accanalyzer;
 import android.content.Context;
 import android.preference.ListPreference;
 import android.util.AttributeSet;
+import android.util.Log;
 
 /**
  * preference screen setting integer values.
@@ -23,11 +24,24 @@ public class IntegerListPreference extends ListPreference {
 
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-         if(restoreValue) {
-             currentValue = this.getPersistedInt(0);
-         }   else {
-             currentValue = (Integer) defaultValue;
-             persistInt(currentValue);
-         }
+        Log.e("ACCMETER ", "default value: " + defaultValue);
+        if (restoreValue) {
+            currentValue = this.getPersistedInt(0);
+        } else {
+            currentValue = Integer.parseInt(defaultValue.toString());
+            persistInt(currentValue);
+        }
+    }
+
+    @Override
+    public String getValue() {
+        currentValue = getPersistedInt(0);
+        return currentValue.toString();
+    }
+
+    @Override
+    public void setValue(String value) {
+        currentValue = Integer.valueOf(value);
+        persistInt(currentValue);
     }
 }
